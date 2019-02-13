@@ -47,11 +47,13 @@ function determine_qr_code_value(){
 		if (addr_valid){
 			if (uri_checked){
 				//Do not generate a QR-Code if amount is not empty and not a valid number.
+				//Written for hanging decimal (i.e. "3.").
 				if (!amt_valid && !amt_empty){
 						qr_value = "";
 						return qr_value;
 				}
 				//Otherwise, generate a QR-Code value in uri format.
+				//Uri format specifications: https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki
 				else{
 					qr_value = "bitcoin:" + addr_obj.value;
 				}
@@ -68,6 +70,7 @@ console.log("label");
 					uri_field_value_array.push(uri_encoded_label);
 				}
 				if (!message_empty){
+console.log("");
 console.log("message");
 					uri_field_name_array.push("message");
 					uri_field_value_array.push(uri_encoded_message);
@@ -341,11 +344,11 @@ function gen_qrcode(page_change){
         update_page();
 
         var qr_code_value = determine_qr_code_value();
-console.log(qr_code_value);
+console.log("qr code value: " + qr_code_value);
 
         //Clear the last QR Code.
         hide_qrcode();
-                make_qrcode(custom_obj.value);
+	make_qrcode(qr_code_value);
 }
 
 
