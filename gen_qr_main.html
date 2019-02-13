@@ -41,63 +41,6 @@ var uri_checked = false;
 
 var bitcoin_uri;
 
-
-//Update page based on change of page_change variable (which records the most recent change to the page by the user).
-//The "page_change" variable is whichever field was modified (addr_change, amt_change, label_change, message_change, custom_change, or uri_change.)
-function update_page(){
-	if (page_change == 'addr_change' || page_change == 'amt_change' || page_change == 'label_change' || page_change == 'message_change'){
-		if (addr_empty && amt_empty && label_empty && message_empty){
-			custom_obj.value == stored_custom;
-		}
-		else{
-			custom_obj.value == "";
-		}
-	}
-	else if (page_change == 'custom_change'){
-		if (custom_empty){
-			addr_obj.value = stored_addr;
-			amt_obj.value = stored_amt;
-			label_obj.value = stored_label;
-			message_obj.value = stored_message;
-		}
-		else{
-			addr_obj.value = "";
-			amt_obj.value = "";
-			label_obj.value = "";
-			message_obj.value = "";
-		}
-	}
-	else if (page_change == 'uri_change'){
-		custom_obj.value == "";
-		if (!uri_checked){
-			amt_obj.value = "";
-			label_obj.value = "";
-			message_obj.value = "";
-		}
-	}
-	//Run this again to update variables to the latest page updates.
-	get_current_page_state();
-}
-
-//Stores the last valid values.
-function store_values(){
-	if (addr_valid){
-		stored_addr = addr_obj.value;
-	}
-	if (amt_valid){
-		stored_amt = amt_obj.value;
-	}
-	if(!label_empty){
-		stored_label = label_obj.value;
-	}
-	if (!message_empty){
-	stored_message = message_obj.value;
-	}
-	if (!custom_empty){
-		stored_custom = custom_obj.value;
-	}
-}
-
 function determine_qr_code_value(){
 	var qr_value = "";
 	if (custom_empty){
@@ -165,49 +108,6 @@ console.log(uri_field_name_array.length);
 	}
 }
 
-//Generates a QR-code if all values check out.
-function gen_qrcode(page_change){
-	define_html_id_variables();
-	var qr_code_value;
-
-	//This function sets variables like addr_valid, paving the wave for the clear conditional logic below.
-	get_current_page_state();
-	
-	//Stores values for later retrieval.
-	store_values();
-
-	//Depending on which value was most recently changed, the page may need to be updated (i.e. certain fields blanked out).
-	update_page();
-
-	qr_code_value = determine_qr_code_value();
-console.log(qr_code_value);
-
-	//Clear the last QR Code.
-//	hide_qrcode();
-//		make_qrcode(custom_obj.value);
-}
-
-function define_html_id_variables(){
-	uri_checkbox_obj = document.getElementById('uri');
-	amt_obj = document.getElementById('amount');
-	label_obj = document.getElementById('label');
-	message_obj = document.getElementById('message');
-	custom_obj = document.getElementById('custom_id');
-	addr_obj = document.getElementById('address');
-}
-
-function get_current_page_state(){
-	check_address();
-	check_amount();
-	check_label();
-	check_custom_value();
-	check_uri_checkbox();
-
-	
-}
-
-
-
 function hide_qrcode(){
 	document.getElementById('your_address_id').innerHTML = "";
 	document.getElementById('qrcode_id').innerHTML = "";
@@ -223,6 +123,64 @@ function make_qrcode(input_text){
 	qrcode.makeCode(input_text);
 	document.getElementById("dwn-btn").style.visibility = "visible";
 }
+
+//Update page based on change of page_change variable (which records the most recent change to the page by the user).
+//The "page_change" variable is whichever field was modified (addr_change, amt_change, label_change, message_change, custom_change, or uri_change.)
+function update_page(){
+        if (page_change == 'addr_change' || page_change == 'amt_change' || page_change == 'label_change' || page_change == 'message_change'){
+                if (addr_empty && amt_empty && label_empty && message_empty){
+                        custom_obj.value == stored_custom;
+                }
+                else{
+                        custom_obj.value == "";
+                }
+        }
+        else if (page_change == 'custom_change'){
+                if (custom_empty){
+                        addr_obj.value = stored_addr;
+                        amt_obj.value = stored_amt;
+                        label_obj.value = stored_label;
+                        message_obj.value = stored_message;
+                }
+                else{
+                        addr_obj.value = "";
+                        amt_obj.value = "";
+                        label_obj.value = "";
+                        message_obj.value = "";
+                }
+        }
+        else if (page_change == 'uri_change'){
+                custom_obj.value == "";
+                if (!uri_checked){
+                        amt_obj.value = "";
+                        label_obj.value = "";
+                        message_obj.value = "";
+                }
+        }
+        //Run this again to update variables to the latest page updates.
+        get_current_page_state();
+}
+
+
+//Stores the last valid values.
+function store_values(){
+        if (addr_valid){
+                stored_addr = addr_obj.value;
+        }
+        if (amt_valid){
+                stored_amt = amt_obj.value;
+        }
+        if(!label_empty){
+                stored_label = label_obj.value;
+        }
+        if (!message_empty){
+		stored_message = message_obj.value;
+        }
+        if (!custom_empty){
+                stored_custom = custom_obj.value;
+        }
+}
+
 
 //Sets 'addr_empty', 'addr_valid', and 'stored_addr'.
 function check_address(){
@@ -345,6 +303,49 @@ function check_uri_checkbox(){
 	else {
 		uri_checked = false;
 	}
+}
+
+function get_current_page_state(){
+        check_address();
+        check_amount();
+        check_label();
+        check_custom_value();
+        check_uri_checkbox();
+}
+
+//Why is this in a function that gets called over and over?
+// Maybe because the objects haven't been loaded yet.
+// Could use an initialize function?
+function define_html_id_variables(){
+        uri_checkbox_obj = document.getElementById('uri');
+        amt_obj = document.getElementById('amount');
+        label_obj = document.getElementById('label');
+        message_obj = document.getElementById('message');
+        custom_obj = document.getElementById('custom_id');
+        addr_obj = document.getElementById('address');
+}
+
+//Generates a QR-code if all values check out.
+function gen_qrcode(page_change){
+//alert("\nEntered gen_qrcode");
+        define_html_id_variables();
+
+        //This function sets variables like addr_valid, paving the wave for the clear conditional logic below.
+        get_current_page_state();
+        
+        //Stores values for later retrieval.
+        store_values();
+
+        //Depending on which value was most recently changed, 
+	//the page may need to be updated (i.e. certain fields blanked out).
+        update_page();
+
+        var qr_code_value = determine_qr_code_value();
+console.log(qr_code_value);
+
+        //Clear the last QR Code.
+        hide_qrcode();
+                make_qrcode(custom_obj.value);
 }
 
 
