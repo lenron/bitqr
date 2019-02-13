@@ -65,13 +65,10 @@ function determine_qr_code_value(){
 					uri_field_value_array.push(amt_obj.value);
 				}
 				if (!label_empty){
-console.log("label");
 					uri_field_name_array.push("label");
 					uri_field_value_array.push(uri_encoded_label);
 				}
 				if (!message_empty){
-console.log("");
-console.log("message");
 					uri_field_name_array.push("message");
 					uri_field_value_array.push(uri_encoded_message);
 				}
@@ -84,7 +81,6 @@ console.log("message");
 				}
 				//Populate uri with field names and values.
 				while (uri_field_name_array.length > 0){
-console.log(uri_field_name_array.length);
 					qr_value = qr_value + uri_field_name_array.shift() + "=" + uri_field_value_array.shift();
 					if (uri_field_name_array.length > 0){
 						qr_value = qr_value + "&";
@@ -129,7 +125,8 @@ function make_qrcode(input_text){
 
 //Update page based on change of page_change variable (which records the most recent change to the page by the user).
 //The "page_change" variable is whichever field was modified (addr_change, amt_change, label_change, message_change, custom_change, or uri_change.)
-function update_page(){
+function update_page(page_change){
+console.log("entered update_page. value= " + page_change);
         if (page_change == 'addr_change' || page_change == 'amt_change' || page_change == 'label_change' || page_change == 'message_change'){
                 if (addr_empty && amt_empty && label_empty && message_empty){
                         custom_obj.value == stored_custom;
@@ -139,6 +136,7 @@ function update_page(){
                 }
         }
         else if (page_change == 'custom_change'){
+console.log("entered custom_change");
                 if (custom_empty){
                         addr_obj.value = stored_addr;
                         amt_obj.value = stored_amt;
@@ -312,6 +310,7 @@ function get_current_page_state(){
         check_address();
         check_amount();
         check_label();
+	check_message()
         check_custom_value();
         check_uri_checkbox();
 }
@@ -330,7 +329,6 @@ function define_html_id_variables(){
 
 //Generates a QR-code if all values check out.
 function gen_qrcode(page_change){
-//alert("\nEntered gen_qrcode");
         define_html_id_variables();
 
         //This function sets variables like addr_valid, paving the wave for the clear conditional logic below.
@@ -341,7 +339,8 @@ function gen_qrcode(page_change){
 
         //Depending on which value was most recently changed, 
 	//the page may need to be updated (i.e. certain fields blanked out).
-        update_page();
+console.log("page_change= " + page_change);
+        update_page(page_change);
 
         var qr_code_value = determine_qr_code_value();
 console.log("qr code value: " + qr_code_value);
