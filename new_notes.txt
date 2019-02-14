@@ -1,5 +1,3 @@
 1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2
 
-download file name
-if logic
-correct blanking memory logic
+create html template, then fit logic inside
