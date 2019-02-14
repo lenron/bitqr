@@ -23,7 +23,7 @@ var stored_addr = "";   //Records the current address field, so that it can be b
 
 var amt_valid = false;
 var amt_empty = true;
-var last_valid_amt = "";
+var last_amt = "";
 var stored_amt = "";
 
 var uri_encoded_label = "";
@@ -35,12 +35,10 @@ var message_empty = true;
 var stored_message = "";
 
 var custom_empty = true;
-var stored_custom = "";
 var custom_empty_state_changed = false;
 
 var uri_checked = false;
 
-var bitcoin_uri;
 
 function determine_qr_code_value(){
 	var qr_value = "";
@@ -116,53 +114,73 @@ function hide_qrcode(){
 }
 
 function make_qrcode(input_text){
+//console.log("input_text: " + input_text );
+//alert("input_text: " + input_text );
 	var qrcode;
-	//Input fully formed address/uri in readable html.
-	document.getElementById('your_address_id').innerHTML = input_text;
-	qrcode = new QRCode("qrcode_id");
-	qrcode.makeCode(input_text);
-	document.getElementById("dwn-btn").style.visibility = "visible";
+	if ( input_text != "" ) {
+		//Input fully formed address/uri in readable html.
+		document.getElementById('your_address_id').innerHTML = input_text;
+		qrcode = new QRCode("qrcode_id");
+		qrcode.makeCode(input_text);
+		document.getElementById("dwn-btn").style.visibility = "visible";
+	}
 }
 
 //Update page based on change of page_change variable (which records the most recent change to the page by the user).
 //The "page_change" variable is whichever field was modified (addr_change, amt_change, label_change, message_change, custom_change, or uri_change.)
 function update_page(page_change){
-        if (page_change == 'custom_change'){
-                if (custom_empty){
-		    if (custom_empty_state_changed){
-                        	addr_obj.disabled = false;
-                        	amt_obj.disabled = false;
-                        	label_obj.disabled = false;
-                        	message_obj.disabled = false;
+	if (page_change == 'custom_change'){
+		if (custom_empty){
+			if (custom_empty_state_changed){
+				addr_obj.disabled = false;
+				amt_obj.disabled = false;
+				label_obj.disabled = false;
+				message_obj.disabled = false;
+				uri_checkbox_obj.disabled = false;
 				addr_obj.value = stored_addr;
-	                        amt_obj.value = stored_amt;
+				amt_obj.value = stored_amt;
 				label_obj.value = stored_label;
-        	                message_obj.value = stored_message;
-		    }
-		} else {
-		    if (custom_empty_state_changed){
-                        	addr_obj.disabled = true;
-                        	amt_obj.disabled = true;
-                        	label_obj.disabled = true;
-                        	message_obj.disabled = true;
+				message_obj.value = stored_message;
+			}
+		} 
+		else {
+			if (custom_empty_state_changed){
+				addr_obj.disabled = true;
+				amt_obj.disabled = true;
+				label_obj.disabled = true;
+				message_obj.disabled = true;
+				uri_checkbox_obj.disabled = true;
 				store_values();
-		    }
-                        addr_obj.value = "";
-                        amt_obj.value = "";
-                        label_obj.value = "";
-                        message_obj.value = "";
-                }
-        }
-        else if (page_change == 'uri_change'){
-                custom_obj.value == "";
-                if (!uri_checked){
-                        amt_obj.value = "";
-                        label_obj.value = "";
-                        message_obj.value = "";
-                }
-        }
-        //Run this again to update variables to the latest page updates.
-        get_current_page_state();
+			}
+		    addr_obj.value = "";
+		    amt_obj.value = "";
+		    label_obj.value = "";
+		    message_obj.value = "";
+		}
+	}
+	else if (page_change == 'uri_change'){  //store value
+			if (!uri_checked){ //uri was just uchecked 
+				store_values();
+				amt_obj.value = "";
+				label_obj.value = "";
+				message_obj.value = "";
+			}
+			else {  //uri was just checked
+				amt_obj.value = stored_amt;
+                label_obj.value = stored_label;
+                message_obj.value = stored_message;	
+			}
+	}
+	// We're forcing generator to add a uri string when the textboxes are empty and something is entered.
+	else if (uri_checked == false && (page_change == 'amt_change' || page_change == 'label_change' || page_change == 'message_change') ) {
+		if (amt_empty == false || label_empty == false || message_empty == false) {
+		// At this point we know that something is entered into the boxes.
+			//check uri checkbox
+			uri_checkbox_obj.checked = true;
+		}
+	}
+	//Run this again to update variables to the latest page updates.
+	get_current_page_state();
 }
 
 
@@ -172,7 +190,6 @@ function store_values(){
 	stored_amt = amt_obj.value;
 	stored_label = label_obj.value;
 	stored_message = message_obj.value;
-	stored_custom = custom_obj.value;
 }
 
 //Sets 'addr_empty', 'addr_valid', and 'stored_addr'.
@@ -203,7 +220,7 @@ function check_address(){
 	}
 }
 
-//Sets 'amt_valid', 'amt_empty', 'last_valid_amt', and 'stored_amt'.
+//Sets 'amt_valid', 'amt_empty', 'last_amt', and 'stored_amt'.
 function check_amount() {
 	var amt_valid_html_obj;
 	amt_valid_html_obj = document.getElementById('is_amount_valid');
@@ -220,7 +237,6 @@ function check_amount() {
 	if ( /^\d{1,8}(\.\d{1,8})?$/.test(amt_obj.value) ) {
 		amt_valid = true;
 		amt_empty = false;
-		last_valid_amt = amt_obj.value;     //Store the last known good input value.
 		amt_valid_html_obj.innerHTML = "valid";  
 		amt_valid_html_obj.style.color = "green";
 	}
@@ -228,7 +244,6 @@ function check_amount() {
 	else if ( amt_obj.value == "" ) {
 		amt_valid = false;
 		amt_empty = true;
-		last_valid_amt = amt_obj.value;
 		amt_valid_html_obj.innerHTML = "empty";
 		amt_valid_html_obj.style.color = "yellow";
 	}
@@ -242,8 +257,9 @@ function check_amount() {
 	//Otherwise, input is not a valid number.
 	else {
 		//Replace with last valid amount.
-		amt_obj.value = last_valid_amt;
+		amt_obj.value = last_amt;
 	}
+	last_amt = amt_obj.value;
 }
 
 //Sets 'label_empty', 'uri_encoded_label', and 'stored_label'.
@@ -276,7 +292,7 @@ function check_message() {
 	}
 }
 
-//Sets 'custom_empty' and 'stored_custom' (for a custom QR code not in the bitcoin uri format).
+//Sets 'custom_empty' (for a custom QR code not in the bitcoin uri format).
 function check_custom_value() {
 	//If custom string is empty, mark it so. 
 	if ( custom_obj.value == "" ) {
@@ -301,7 +317,7 @@ function check_custom_value() {
 }
 
 //Record whether URI checkbox is presently checked.
-function check_uri_checkbox(){
+function record_uri_checkbox_state(){
 	if (uri_checkbox_obj.checked) {
 		uri_checked = true;
 	}
@@ -316,7 +332,7 @@ function get_current_page_state(){
         check_label();
 	check_message()
         check_custom_value();
-        check_uri_checkbox();
+        record_uri_checkbox_state();
 }
 
 //Why is this in a function that gets called over and over?
@@ -386,13 +402,26 @@ QR Code Value:
 
 
 <script>
+
+	// Use a default bitcoin address onload to show the user that the page works.
+	// Zero everything else out.
+	document.getElementById("address").value = "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2";
+	document.getElementById("amount").value = "";
+	document.getElementById("label").value = "";
+	document.getElementById("message").value = "";
+	document.getElementById("custom_id").value = "";
+	document.getElementById("uri").checked = true;
+	
 	//See if we can generate a code.
 	gen_qrcode();
 
 	// Listen for download click.
 	document.getElementById("dwn-btn").addEventListener("click", function(){
 		var qr_img_src = document.getElementById("qr_img").src;
-		var filename = addr_obj.value + ".png";
+		var filename = "Custom_QR_Code.png"; 
+		if ( addr_obj.value != "" ) { 
+			filename = addr_obj.value + ".png";
+		}
 		download(filename, qr_img_src);
 	}, false);
 
@@ -412,3 +441,5 @@ QR Code Value:
 </script>
 
 </html>
+
+
