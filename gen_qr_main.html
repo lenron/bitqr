@@ -36,6 +36,7 @@ var stored_message = "";
 
 var custom_empty = true;
 var stored_custom = "";
+var custom_empty_state_changed = false;
 
 var uri_checked = false;
 
@@ -126,24 +127,27 @@ function make_qrcode(input_text){
 //Update page based on change of page_change variable (which records the most recent change to the page by the user).
 //The "page_change" variable is whichever field was modified (addr_change, amt_change, label_change, message_change, custom_change, or uri_change.)
 function update_page(page_change){
-console.log("entered update_page. value= " + page_change);
-        if (page_change == 'addr_change' || page_change == 'amt_change' || page_change == 'label_change' || page_change == 'message_change'){
-                if (addr_empty && amt_empty && label_empty && message_empty){
-                        custom_obj.value == stored_custom;
-                }
-                else{
-                        custom_obj.value == "";
-                }
-        }
-        else if (page_change == 'custom_change'){
-console.log("entered custom_change");
+        if (page_change == 'custom_change'){
                 if (custom_empty){
-                        addr_obj.value = stored_addr;
-                        amt_obj.value = stored_amt;
-                        label_obj.value = stored_label;
-                        message_obj.value = stored_message;
-                }
-                else{
+						if (custom_empty_state_changed){
+                        	addr_obj.disabled = false;
+                        	amt_obj.disabled = false;
+                        	label_obj.disabled = false;
+                        	message_obj.disabled = false;
+							addr_obj.value = stored_addr;
+	                        amt_obj.value = stored_amt;
+    	                    label_obj.value = stored_label;
+        	                message_obj.value = stored_message;
+						}
+				}
+                else {
+						if (custom_empty_state_changed){
+                        	addr_obj.disabled = true;
+                        	amt_obj.disabled = true;
+                        	label_obj.disabled = true;
+                        	message_obj.disabled = true;
+							store_values();
+						}
                         addr_obj.value = "";
                         amt_obj.value = "";
                         label_obj.value = "";
@@ -165,23 +169,12 @@ console.log("entered custom_change");
 
 //Stores the last valid values.
 function store_values(){
-        if (addr_valid){
-                stored_addr = addr_obj.value;
-        }
-        if (amt_valid){
-                stored_amt = amt_obj.value;
-        }
-        if(!label_empty){
-                stored_label = label_obj.value;
-        }
-        if (!message_empty){
-		stored_message = message_obj.value;
-        }
-        if (!custom_empty){
-                stored_custom = custom_obj.value;
-        }
+	stored_addr = addr_obj.value;
+	stored_amt = amt_obj.value;
+	stored_label = label_obj.value;
+	stored_message = message_obj.value;
+	stored_custom = custom_obj.value;
 }
-
 
 //Sets 'addr_empty', 'addr_valid', and 'stored_addr'.
 function check_address(){
@@ -288,10 +281,22 @@ function check_message() {
 function check_custom_value() {
 	//If custom string is empty, mark it so. 
 	if ( custom_obj.value == "" ) {
+		if (custom_empty == false){
+			custom_empty_state_changed = true;
+		}
+		else{
+			custom_empty_state_changed = false;
+		}
 		custom_empty = true;
 	}
 	//Otherwise, mark as not empty. 
 	else {
+		if (custom_empty == true){
+			custom_empty_state_changed = true;
+		}
+		else{
+			custom_empty_state_changed = false;
+		}
 		custom_empty = false;
 	}
 }
@@ -335,7 +340,7 @@ function gen_qrcode(page_change){
         get_current_page_state();
         
         //Stores values for later retrieval.
-        store_values();
+//        store_values();
 
         //Depending on which value was most recently changed, 
 	//the page may need to be updated (i.e. certain fields blanked out).
