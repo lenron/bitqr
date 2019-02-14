@@ -129,25 +129,24 @@ function make_qrcode(input_text){
 function update_page(page_change){
         if (page_change == 'custom_change'){
                 if (custom_empty){
-						if (custom_empty_state_changed){
+		    if (custom_empty_state_changed){
                         	addr_obj.disabled = false;
                         	amt_obj.disabled = false;
                         	label_obj.disabled = false;
                         	message_obj.disabled = false;
-							addr_obj.value = stored_addr;
+				addr_obj.value = stored_addr;
 	                        amt_obj.value = stored_amt;
-    	                    label_obj.value = stored_label;
+				label_obj.value = stored_label;
         	                message_obj.value = stored_message;
-						}
-				}
-                else {
-						if (custom_empty_state_changed){
+		    }
+		} else {
+		    if (custom_empty_state_changed){
                         	addr_obj.disabled = true;
                         	amt_obj.disabled = true;
                         	label_obj.disabled = true;
                         	message_obj.disabled = true;
-							store_values();
-						}
+				store_values();
+		    }
                         addr_obj.value = "";
                         amt_obj.value = "";
                         label_obj.value = "";
