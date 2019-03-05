@@ -5,14 +5,12 @@
 </head>
 <body>
 
-<div>
-	<div name="inputs" style="width:50%; border: 1px blue solid;">
-		Left
-		<div id="" style=" border-bottom: 1px black solid;">
-			Enter Bitcoin Address: <input type="text" id="address" style="width:280; height:50; font-size:22px">
-			<br>
-			<p style="text-align: left; color: green;">valid</p>
-		</div>
+<div name="main_body">
+	<div align="center" style="border: 2px yellow solid;">
+		<h3>Bitcoin QR Code Generator</h3>
+	</div>
+	<div name="inputs" style="width:90%; border: 1px blue solid; margin-left: 10px;">
+		Enter Bitcoin Address:<div style="margin-left: 40px"><input type="text" id="address" style="width:600px; font-size:18px;"><br>rightbelows<div>
 
 
 
@@ -27,4 +25,18 @@
 
 
 </div>
+
+
+<input type="button" value="Error bitcoin address" onclick="address_error()"</input>
+<input type="button" value="Valid bitcoin address" onclick="address_valid()"</input>
+
+<script>
+	function address_error (){
+		document.getElementById("address").style.border = "2px solid red";
+	}
+	function address_valid (){
+		document.getElementById("address").style.border = "";
+	}
+</script>
+
 </body></html>
