@@ -11,22 +11,20 @@
 	</div>
 	<div name="inputs" style="float: left; width:60%; border: 1px blue solid; margin-left: 10px;">
 		<div style="float: left; width: 150px;">Enter Bitcoin Address:</div>
-		<div style="margin-left: 150px"><input type="text" id="address" style="width:600px; font-size:18px;"><br><p id="valid_text" style="margin: 0; padding: 0; visibility: hidden; color: red;">Invalid Bitcoin Address!</p></div>
-		<div style="float: left;">
-			<p "border: 1px orange solid; padding: 10px;">Amount: <input type="text" id="amount"></p>
-			<p "border: 1px orange solid; padding: 10px;">Label: <input type="text" id="label"></p>
-			<p "border: 1px orange solid; padding: 10px;">Message: <input type="text" id="message"></p>
-		</div>
-		<div >
-			<p>Use URI? <input type="checkbox" id="uri_checkbox"></p>
+		<div style="margin-left: 150px"><input type="text" id="address" style="width:600px; font-size:18px;"><br><p id="valid_text" style="margin: 0; padding-top: 5px; visibility: hidden; color: red;">Invalid Bitcoin Address!</p></div>
+		<div name=uri_input_section" style="width: 80%; border: 2px orange solid; overflow: auto">
+			<div align="right" name="amount-label-message" style="float: left; width: 49%; border: 2px green solid">
+				<p>Amount: <input type="text" id="amount"></p>
+				<p>Label: <input type="text" id="label"></p>
+				<p>Message: <input type="text" id="message"></p>
+			</div>
+			<div name="uri_checkbox" style="border: 2px red solid; width:45%; float: right; padding-top: 50px">
+				<p>Bitcoin URI <input type="checkbox" id="uri_checkbox"></p>
+			</div>
 		</div>
 
-
-		<div id="" style="">
-			Enter custom string: <input type="text">
-		</div>
 	</div>
-	<div style="margin-left: 65%;">
+	<div name="qrcode_image" style="margin-left: 65%;">
 
 		<img style=" border: 1px orange solid; padding: 10px;"src="img_qr.png">
 	</div>
