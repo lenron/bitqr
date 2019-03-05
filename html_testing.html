@@ -9,18 +9,26 @@
 	<div align="center" style="border: 2px yellow solid;">
 		<h3>Bitcoin QR Code Generator</h3>
 	</div>
-	<div name="inputs" style="width:90%; border: 1px blue solid; margin-left: 10px;">
-		Enter Bitcoin Address:<div style="margin-left: 40px"><input type="text" id="address" style="width:600px; font-size:18px;"><br>rightbelows<div>
-
-
+	<div name="inputs" style="float: left; width:60%; border: 1px blue solid; margin-left: 10px;">
+		<div style="float: left; width: 150px;">Enter Bitcoin Address:</div>
+		<div style="margin-left: 150px"><input type="text" id="address" style="width:600px; font-size:18px;"><br><p id="valid_text" style="margin: 0; padding: 0; visibility: hidden; color: red;">Invalid Bitcoin Address!</p></div>
+		<div style="float: left;">
+			<p "border: 1px orange solid; padding: 10px;">Amount: <input type="text" id="amount"></p>
+			<p "border: 1px orange solid; padding: 10px;">Label: <input type="text" id="label"></p>
+			<p "border: 1px orange solid; padding: 10px;">Message: <input type="text" id="message"></p>
+		</div>
+		<div >
+			<p>Use URI? <input type="checkbox" id="uri_checkbox"></p>
+		</div>
 
 
 		<div id="" style="">
 			Enter custom string: <input type="text">
 		</div>
 	</div>
-	<div style="">
-		Right
+	<div style="margin-left: 65%;">
+
+		<img style=" border: 1px orange solid; padding: 10px;"src="img_qr.png">
 	</div>
 
 
@@ -33,9 +41,11 @@
 <script>
 	function address_error (){
 		document.getElementById("address").style.border = "2px solid red";
+		document.getElementById("valid_text").style.visibility = "visible";
 	}
 	function address_valid (){
 		document.getElementById("address").style.border = "";
+		document.getElementById("valid_text").style.visibility = "hidden";
 	}
 </script>
 
