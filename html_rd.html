@@ -20,8 +20,14 @@
 	flex-direction: column;
 	border: 1px red solid;
 	width: 60%;
-	justify-content: center;
+	/* justify-content: center; */
 	align-items: center;
+}
+
+.address {
+	border: 1px green solid;
+	width: 100%;
+
 }
 
 .uri_input_section {
@@ -48,8 +54,10 @@
     </div>
 	<div class="flex-container">
 		<div class="inputs">
-			<div> Enter Bitcoin Address: <input type="text" id="address" style="">
-			<br><p id="valid_text" style="">Invalid Bitcoin Address!</p></div>
+			<div class="address"> 
+				Enter Bitcoin Address: <input type="text" id="address" style=""><br>
+				<p id="valid_text" style="">Invalid Bitcoin Address!</p>
+			</div>
 			<div class="uri_input_section">
 				<div name="amount-label-message" align="right" style="">
 					<p>Amount: <input type="text" id="amount"></p>
@@ -60,6 +68,8 @@
 					<p>Bitcoin URI <input type="checkbox" id="uri_checkbox"></p>
 				</div>
 			</div>
+			<div class="custom">
+				
 
 		</div>
 		<div name="qrcode_image">
@@ -67,8 +77,8 @@
 		</div>
 	</div>
 
-<input type="button" value="Error bitcoin address" onclick="address_error()"</input>
-<input type="button" value="Valid bitcoin address" onclick="address_valid()"</input>
+	<input type="button" value="Error bitcoin address" onclick="address_error()"</input>
+	<input type="button" value="Valid bitcoin address" onclick="address_valid()"</input>
 <script>
     function address_error (){
         document.getElementById("address").style.border = "2px solid red";
@@ -80,4 +90,5 @@
     }
 </script>
 
-</body></html>
+</body>
+</html>
