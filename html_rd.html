@@ -20,8 +20,8 @@
 	flex-direction: column;
 	border: 1px red solid;
 	width: 60%;
-	/* justify-content: center; */
-	align-items: center;
+	/* justify-content: center;  	Align with respect to the vertical axis. */
+	align-items: center;    	/* Align with respect to the horizontal axis. */
 }
 
 .address {
@@ -51,6 +51,11 @@
 	padding: 7px;
 }
 
+.qr_image_container {
+	display: flex;
+	flex-direction: column;
+}
+
 </style>
 </head>
 <body>
@@ -76,9 +81,13 @@
 			<div class="custom">
 				Enter Custom String: <input type="text" id="custom">
 			</div>
+			<div class="qr_code_string">
+				<p>Exact QR String here.</p>
+			</div>
 		</div>
-		<div name="qrcode_image">
+		<div class="qr_image_container">
 			<img style=" border: 1px orange solid; padding: 10px;"src="img_qr.png">
+			<input type="button" id="download_qr_code" value="Download QR Code">
 		</div>
 	</div>
 
