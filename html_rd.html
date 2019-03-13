@@ -16,13 +16,16 @@
 }
 
 .inputs {
+	display: flex;
 	flex-direction: column;
 	border: 1px red solid;
 	width: 60%;
-	align-content: center;
+	justify-content: center;
+	align-items: center;
 }
 
 .uri_input_section {
+	display: flex;
 	border: 1px green solid;
 	justify-content: space-around;
 	background-color: lightblue;
@@ -45,9 +48,9 @@
     </div>
 	<div class="flex-container">
 		<div class="inputs">
-			Enter Bitcoin Address: <input type="text" id="address" style="">
-			<br><p id="valid_text" style="">Invalid Bitcoin Address!</p>
-			<div class="uri_input_section flex-container">
+			<div> Enter Bitcoin Address: <input type="text" id="address" style="">
+			<br><p id="valid_text" style="">Invalid Bitcoin Address!</p></div>
+			<div class="uri_input_section">
 				<div name="amount-label-message" align="right" style="">
 					<p>Amount: <input type="text" id="amount"></p>
                 	<p>Label: <input type="text" id="label"></p>
