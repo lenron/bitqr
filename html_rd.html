@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta charset="utf-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--   <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
 <title>Bitcoin QR Code Generator</title>
 <style>
 * {
@@ -11,49 +11,53 @@
 .flex-container {
 	display: flex;
 	flex-direction: row;
-	border: 1px blue solid;
 	flex-wrap: wrap;
+	justify-content: space-around;
+	border: 1px blue solid;
 }
 
 .inputs {
 	display: flex;
 	flex-direction: column;
-	border: 1px red solid;
+	align-items: center; 
 	width: 60%;
-	/* justify-content: center;  	Align with respect to the vertical axis. */
-	align-items: center;    	/* Align with respect to the horizontal axis. */
+	border: 2px red solid;
 }
 
 .address {
-	border: 1px green solid;
 	width: 100%;
-	padding: 7px;
+	border: 1px green solid;
 }
 
 .uri_input_section {
 	display: flex;
-	border: 1px green solid;
 	justify-content: space-around;
-	background-color: lightblue;
+	flex-wrap: wrap;
 	width: 80%;
+	background-color: lightblue;
+	border: 1px green solid;
 }
 
-.uricheckbox {
+.uricheckbox {	/*Centering textbox vertically*/
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-
 }
 
 .custom {
-	border: 1px pink solid;
 	width: 100%;
-	padding: 7px;
+	border: 1px pink solid;
 }
 
 .qr_image_container {
 	display: flex;
 	flex-direction: column;
+	align-items: center;  /*cross axis (i.e. the horizontal axis for our column) centered.*/
+}
+
+.download_button {
+	padding: 10px;
+	margin: 10px;
 }
 
 </style>
@@ -65,7 +69,7 @@
 	<div class="flex-container">
 		<div class="inputs">
 			<div class="address"> 
-				Enter Bitcoin Address: <input type="text" id="address"><br>
+				Enter Bitcoin Address: <input type="text" id="address">
 				<p id="valid_text" style="">Invalid Bitcoin Address!</p>
 			</div>
 			<div class="uri_input_section">
@@ -87,7 +91,7 @@
 		</div>
 		<div class="qr_image_container">
 			<img style=" border: 1px orange solid; padding: 10px;"src="img_qr.png">
-			<input type="button" id="download_qr_code" value="Download QR Code">
+			<input class="download_button" type="button" id="download_qr_code" value="Download QR Code">
 		</div>
 	</div>
 
