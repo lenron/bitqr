@@ -4,62 +4,75 @@
 <!--   <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
 <title>Bitcoin QR Code Generator</title>
 <style>
-* {
-	box-sizing: border-box;
-}
+	* {
+		box-sizing: border-box;
+	}
 
-.flex-container {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	border: 1px blue solid;
-}
+	.flex-container {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		border: 1px blue solid;
+	}
 
-.inputs {
-	display: flex;
-	flex-direction: column;
-	align-items: center; 
-	width: 60%;
-	border: 2px red solid;
-}
+	.inputs {
+		display: flex;
+		flex-direction: column;
+		align-items: center; 
+		border: 2px red solid;
+	}
 
-.address {
-	width: 100%;
-	border: 1px green solid;
-}
+	.address {
+		width: 100%;
+		border: 1px green solid;
+	}
 
-.uri_input_section {
-	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	width: 80%;
-	background-color: lightblue;
-	border: 1px green solid;
-}
+	.uri_input_section {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		background-color: lightblue;
+		border: 3px green solid;
+	}
 
-.uricheckbox {	/*Centering textbox vertically*/
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
+	.uricheckbox {	/*Centering textbox vertically*/
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
 
-.custom {
-	width: 100%;
-	border: 1px pink solid;
-}
+	.custom {
+		width: 100%;
+		border: 1px pink solid;
+	}
 
-.qr_image_container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;  /*cross axis (i.e. the horizontal axis for our column) centered.*/
-}
+	.qr_image_container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;  /*cross axis (i.e. the horizontal axis for our column) centered.*/
+	}
 
-.download_button {
-	padding: 10px;
-	margin: 10px;
-}
+	.download_button {
+		padding: 10px;
+		margin: 10px;
+	}
 
+	.container_of_textboxes {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+	}
+
+	.textbox_flex_wrap {
+		display: flex;
+		flex-direction: row:
+		flex-wrap: nowrap;
+		align-items: flex-start;
+	}
+
+	
 </style>
 </head>
 <body>
@@ -70,13 +83,13 @@
 		<div class="inputs">
 			<div class="address"> 
 				Enter Bitcoin Address: <input type="text" id="address">
-				<p id="valid_text" style="">Invalid Bitcoin Address!</p>
+				<div id="valid_text" style="">Invalid Bitcoin Address!</div>
 			</div>
 			<div class="uri_input_section">
-				<div name="amount-label-message" align="right">
-					<p>Amount: <input type="text" id="amount"></p>
-                	<p>Label: <input type="text" id="label"></p>
-                	<p>Message: <input type="text" id="message"></p>
+				<div name="amount-label-message" class="container_of_textboxes">
+					<div class="textbox_flex_wrap">Amount: <input type="text" id="amount"></div>
+					<div class="textbox_flex_wrap">Label: <input type="text" id="label"></div>
+					<div class="textbox_flex_wrap">Message: <input type="text" id="message"></div>
 				</div>
 				<div class="uricheckbox">
 					<p>Bitcoin URI <input type="checkbox" id="uri_checkbox"></p>
@@ -86,7 +99,7 @@
 				Enter Custom String: <input type="text" id="custom">
 			</div>
 			<div class="qr_code_string">
-				<p>Exact QR String here.</p>
+				<div>Exact QR String here.</div>
 			</div>
 		</div>
 		<div class="qr_image_container">
