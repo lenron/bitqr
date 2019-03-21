@@ -10,6 +10,10 @@
 		font-family: 'Ubuntu', sans-serif;
 	}
 
+	body {
+		background-color: #808080;
+	}
+
 	.flex-container {
 		display: flex;
 		flex-direction: row;
@@ -17,12 +21,12 @@
 		justify-content: space-around;
 	}
 
-	.inputs {
+	.input-container {
 		width: 60%;
 		display: flex;
 		flex-direction: column;
 		align-items: center; 
-		padding: 5px;
+		padding: 10px;
 		border-radius: 10px;
 		background-color: #A9A9A9;
 	}
@@ -79,7 +83,7 @@
 	}
 
 	input {
-		border-radius: 8px;
+		border-radius: 6px;
 		border: 2px silver solid;
 		/* background-color: #808080; */
 		/* background-color: #A9A9A9; */
@@ -87,36 +91,33 @@
 
 	.address_input {
 		width: 100%;
-		font-size: 18pt;
+		font-size: 14pt;
 		padding: 5px;
-		border-radius: 10px;
 	}
+
 	.address_input:focus {
 		outline: none;
 		border: 2px green solid;
 	}
 
-	::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  		color: #D3D3D3;
-	}
-	
+
 </style>
 </head>
-<body bgcolor="#808080">
+<body>
     <div align="center" style="border: 2px yellow solid; margin-bottom: 5px;">
         <h3>Bitcoin QR Code Generator</h3>
     </div>
 	<div class="flex-container">
-		<div class="inputs">
+		<div class="input-container">
 			<div class="address"> 
 				Enter Bitcoin Address: <br><input class="address_input" type="text" id="address" autocomplete="off" placeholder="Enter Bitcoin address.">
 				<div id="valid_text" style="">Invalid Bitcoin Address!</div>
 			</div>
 			<div class="uri_input_section">
 				<div name="amount-label-message" class="container_of_textboxes">
-					<div class="textbox_flex_wrap">Amount: <input type="text" id="amount"></div>
-					<div class="textbox_flex_wrap">Label: <input type="text" id="label"></div>
-					<div class="textbox_flex_wrap">Message: <input type="text" id="message"></div>
+					<div class="textbox_flex_wrap">Amount: <input type="text" id="amount" autocomplete="off"></div>
+					<div class="textbox_flex_wrap">Label: <input type="text" id="label" autocomplete="off"></div>
+					<div class="textbox_flex_wrap">Message: <input type="text" id="message" autocomplete="off"></div>
 				</div>
 				<div class="uricheckbox">
 					<p>Bitcoin URI <input type="checkbox" id="uri_checkbox"></p>
