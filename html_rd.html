@@ -14,13 +14,21 @@
 		background-color: #808080;
 	}
 
-	.flex-container {
+	input {
+		border-radius: 6px;
+		border: 2px silver solid;
+		/* background-color: #808080; */
+		/* background-color: #A9A9A9; */
+	}
+
+	.page-container {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
 		justify-content: space-around;
 	}
 
+	/*The 1st item of page-container*/
 	.input-container {
 		width: 60%;
 		display: flex;
@@ -31,8 +39,19 @@
 		background-color: #A9A9A9;
 	}
 
-	.address {
+	.address_section {
 		width: 100%;
+	}
+
+	.address_input {
+		width: 100%;
+		font-size: 14pt;
+		padding: 5px;
+	}
+
+	.address_input:focus {
+		outline: none;
+		border: 2px green solid;
 	}
 
 	.uri_input_section {
@@ -43,30 +62,6 @@
 		flex-wrap: wrap;
 		padding: 5px;
 		background-color: lightblue;
-	}
-
-	.uricheckbox {	/*Centering textbox vertically*/
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-
-	.custom {
-		width: 100%;
-	}
-
-	.qr_image_container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;  /*cross axis (i.e. the horizontal axis for our column) centered.*/
-		padding: 25px;
-        border-radius: 10px;
-		background-color: #A9A9A9;
-	}
-
-	.download_button {
-		padding: 10px;
-		margin: 10px;
 	}
 
 	.container_of_textboxes {
@@ -82,24 +77,30 @@
 		align-items: flex-start;
 	}
 
-	input {
-		border-radius: 6px;
-		border: 2px silver solid;
-		/* background-color: #808080; */
-		/* background-color: #A9A9A9; */
+	.uricheckbox {	/*Centering textbox vertically*/
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 
-	.address_input {
+	.custom_section {
 		width: 100%;
-		font-size: 14pt;
-		padding: 5px;
 	}
 
-	.address_input:focus {
-		outline: none;
-		border: 2px green solid;
+	/*The 2nd item of page-container*/
+	.qr_image_container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;  /*cross axis (i.e. the horizontal axis for our column) centered.*/
+		padding: 25px;
+        border-radius: 10px;
+		background-color: #A9A9A9;
 	}
 
+	.download_button {
+		padding: 10px;
+		margin: 10px;
+	}
 
 </style>
 </head>
@@ -107,9 +108,9 @@
     <div align="center" style="border: 2px yellow solid; margin-bottom: 5px;">
         <h3>Bitcoin QR Code Generator</h3>
     </div>
-	<div class="flex-container">
+	<div class="page-container">
 		<div class="input-container">
-			<div class="address"> 
+			<div class="address_section"> 
 				Enter Bitcoin Address: <br><input class="address_input" type="text" id="address" autocomplete="off" placeholder="Enter Bitcoin address.">
 				<div id="valid_text" style="">Invalid Bitcoin Address!</div>
 			</div>
@@ -123,7 +124,7 @@
 					<p>Bitcoin URI <input type="checkbox" id="uri_checkbox"></p>
 				</div>
 			</div>
-			<div class="custom">
+			<div class="custom_section">
 				Enter Custom String: <input type="text" id="custom">
 			</div>
 			<div class="qr_code_string">
