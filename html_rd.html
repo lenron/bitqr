@@ -39,6 +39,7 @@
 		background-color: #A9A9A9;
 	}
 
+	/*1st item of input-container*/
 	.address_section {
 		width: 100%;
 	}
@@ -54,35 +55,46 @@
 		border: 2px green solid;
 	}
 
-	.uri_input_section {
-		width: 70%;
+	/*2nd item of input-container*/
+	.uri_input_container {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
 		flex-wrap: wrap;
+		width: 80%;
 		padding: 5px;
 		background-color: lightblue;
 	}
 
+	/*1st item uri_input_container*/	
 	.container_of_textboxes {
 		display: flex;
 		flex-direction: column;
-		align-items: flex-end;
+		border: 5px red solid;
+		max-width: 100%;
 	}
 
-	.textbox_flex_wrap {
+	/*Each of these is an item of container_of_textboxes*/
+	.uri_label_and_input_container {
 		display: flex;
 		flex-direction: row:
-		flex-wrap: nowrap;
-		align-items: flex-start;
+		justify-content: flex-end;
+		border: 5px blue solid;
 	}
 
+	.uri_label_and_input_container input {
+	}
+	.uri_label_and_input_container label {
+	}
+
+	/*2nd item uri_input_container*/	
 	.uricheckbox {	/*Centering textbox vertically*/
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 	}
 
+	/*3rd item of input-container*/
 	.custom_section {
 		width: 100%;
 	}
@@ -97,6 +109,7 @@
 		background-color: #A9A9A9;
 	}
 
+	/*2nd item of qr_image_container*/
 	.download_button {
 		padding: 10px;
 		margin: 10px;
@@ -114,11 +127,11 @@
 				Enter Bitcoin Address: <br><input class="address_input" type="text" id="address" autocomplete="off" placeholder="Enter Bitcoin address.">
 				<div id="valid_text" style="">Invalid Bitcoin Address!</div>
 			</div>
-			<div class="uri_input_section">
+			<div class="uri_input_container">
 				<div name="amount-label-message" class="container_of_textboxes">
-					<div class="textbox_flex_wrap">Amount: <input type="text" id="amount" autocomplete="off"></div>
-					<div class="textbox_flex_wrap">Label: <input type="text" id="label" autocomplete="off"></div>
-					<div class="textbox_flex_wrap">Message: <input type="text" id="message" autocomplete="off"></div>
+					<div class="uri_label_and_input_container"><label>Amount: </label><input type="text" id="amount" autocomplete="off"></div>
+					<div class="uri_label_and_input_container"><label>Label: </label><input type="text" id="label" autocomplete="off"></div>
+					<div class="uri_label_and_input_container"><label>Message: </label><input type="text" id="message" autocomplete="off"></div>
 				</div>
 				<div class="uricheckbox">
 					<p>Bitcoin URI <input type="checkbox" id="uri_checkbox"></p>
