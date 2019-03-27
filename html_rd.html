@@ -16,14 +16,12 @@
 
 	input {
 		border-radius: 6px;
-		border: 2px silver solid;
+		border: 1px #404040 solid;
 		/* background-color: #808080; */
 		/* background-color: #A9A9A9; */
 	}
 
 	input[type="text"]:focus {
-		outline: 0;
-		box-shadow: 0 0 0 4px rgba(0, 123, 255, .5);
 	}
 
 	.page-container {
@@ -51,12 +49,16 @@
 
 	.address_input {
 		width: 100%;
+		border: 1.5px #404040 solid;
 		font-size: 14pt;
 		padding: 5px;
+		margin: 3px 0 3px 0;
 	}
 
 	.address_input:focus {
 		outline: 0;
+		border: 1.5px solid #00b300;
+		box-shadow: 0 0 1px 4px rgb(0, 255, 0, .4);
 	}
 
 	.invalid_text {
@@ -178,11 +180,13 @@
 	<input type="button" value="Valid bitcoin address" onclick="address_valid()"</input>
 <script>
     function address_error (){
-        document.getElementById("address").style.border = "2px solid red";
+        document.getElementById("address").style.border = "1.5px solid red";
+        document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(255, 0, 0, .4)";
         document.getElementById("invalid_text").style.visibility = "visible";
     }
     function address_valid (){
-        document.getElementById("address").style.border = "";
+        document.getElementById("address").style.border = "1.5px solid #00b300";
+        document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(0, 255, 0, .4)";
         document.getElementById("invalid_text").style.visibility = "hidden";
     }
 </script>
