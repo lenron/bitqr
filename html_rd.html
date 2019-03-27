@@ -21,6 +21,11 @@
 		/* background-color: #A9A9A9; */
 	}
 
+	input[type="text"]:focus {
+		outline: 0;
+		box-shadow: 0 0 0 4px rgba(0, 123, 255, .5);
+	}
+
 	.page-container {
 		display: flex;
 		flex-direction: row;
@@ -34,7 +39,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center; 
-		padding: 10px;
 		border-radius: 10px;
 		background-color: #A9A9A9;
 	}
@@ -42,6 +46,7 @@
 	/*1st item of input-container*/
 	.address_section {
 		width: 100%;
+		padding: 10px;
 	}
 
 	.address_input {
@@ -51,8 +56,11 @@
 	}
 
 	.address_input:focus {
-		outline: none;
-		border: 2px green solid;
+		outline: 0;
+	}
+
+	.invalid_text {
+		color: red;
 	}
 
 	/*2nd item of input-container*/
@@ -61,7 +69,7 @@
 		flex-direction: row;
 		justify-content: space-around;
 		flex-wrap: wrap;
-		width: 80%;
+		width: 100%;
 		padding: 5px;
 		background-color: lightblue;
 	}
@@ -70,7 +78,6 @@
 	.container_of_textboxes {
 		display: flex;
 		flex-direction: column;
-		border: 5px red solid;
 		max-width: 100%;
 	}
 
@@ -79,12 +86,17 @@
 		display: flex;
 		flex-direction: row:
 		justify-content: flex-end;
-		border: 5px blue solid;
+		padding: 2px;
 	}
 
 	.uri_label_and_input_container input {
+		font-size: 12pt;
+		min-width: 170px;
+		padding: 2px;
 	}
+
 	.uri_label_and_input_container label {
+		width: 85px;
 	}
 
 	/*2nd item uri_input_container*/	
@@ -97,6 +109,17 @@
 	/*3rd item of input-container*/
 	.custom_section {
 		width: 100%;
+		background-color: #ff99ff;
+		padding: 10px;
+	}
+
+	.custom_input {
+		width: 100%;
+		font-size: 12pt;
+	}
+
+	.qr_code_string {
+		padding: 10px;
 	}
 
 	/*The 2nd item of page-container*/
@@ -124,8 +147,8 @@
 	<div class="page-container">
 		<div class="input-container">
 			<div class="address_section"> 
-				Enter Bitcoin Address: <br><input class="address_input" type="text" id="address" autocomplete="off" placeholder="Enter Bitcoin address.">
-				<div id="valid_text" style="">Invalid Bitcoin Address!</div>
+				Enter Bitcoin Address: <br><input class="address_input" type="text" id="address" autocomplete="off" placeholder="Enter Bitcoin address." autofocus>
+				<div class="invalid_text" id="invalid_text">Invalid Bitcoin Address!</div>
 			</div>
 			<div class="uri_input_container">
 				<div name="amount-label-message" class="container_of_textboxes">
@@ -138,10 +161,10 @@
 				</div>
 			</div>
 			<div class="custom_section">
-				Enter Custom String: <input type="text" id="custom">
+				Enter Custom String: <br><input class="custom_input" type="text" id="custom" autocomplete="off">
 			</div>
 			<div class="qr_code_string">
-				<div>Exact QR String here.</div>
+				Exact QR String here.
 			</div>
 		</div>
 		<div class="qr_image_container">
@@ -155,11 +178,11 @@
 <script>
     function address_error (){
         document.getElementById("address").style.border = "2px solid red";
-        document.getElementById("valid_text").style.visibility = "visible";
+        document.getElementById("invalid_text").style.visibility = "visible";
     }
     function address_valid (){
         document.getElementById("address").style.border = "";
-        document.getElementById("valid_text").style.visibility = "hidden";
+        document.getElementById("invalid_text").style.visibility = "hidden";
     }
 </script>
 
