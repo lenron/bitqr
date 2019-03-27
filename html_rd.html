@@ -116,6 +116,7 @@
 	.custom_input {
 		width: 100%;
 		font-size: 12pt;
+		padding: 2px;
 	}
 
 	.qr_code_string {
@@ -147,7 +148,7 @@
 	<div class="page-container">
 		<div class="input-container">
 			<div class="address_section"> 
-				Enter Bitcoin Address: <br><input class="address_input" type="text" id="address" autocomplete="off" placeholder="Enter Bitcoin address." autofocus>
+				<label>Enter Bitcoin Address: </label><br><input class="address_input" type="text" id="address" autocomplete="off" placeholder="Enter Bitcoin address." autofocus spellcheck="false">
 				<div class="invalid_text" id="invalid_text">Invalid Bitcoin Address!</div>
 			</div>
 			<div class="uri_input_container">
@@ -161,7 +162,7 @@
 				</div>
 			</div>
 			<div class="custom_section">
-				Enter Custom String: <br><input class="custom_input" type="text" id="custom" autocomplete="off">
+				<label>Enter Custom String: </label><br><input class="custom_input" type="text" id="custom" autocomplete="off">
 			</div>
 			<div class="qr_code_string">
 				Exact QR String here.
