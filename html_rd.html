@@ -16,12 +16,15 @@
 
 	input {
 		border-radius: 6px;
+		padding: 4px;
 		border: 1px #404040 solid;
 		/* background-color: #808080; */
 		/* background-color: #A9A9A9; */
 	}
 
 	input[type="text"]:focus {
+		outline: 0;
+		box-shadow: 0 0 1px 4px rgb(77, 184, 255, .7);
 	}
 
 	.page-container {
@@ -43,8 +46,15 @@
 
 	/*1st item of input-container*/
 	.address_section {
+		display: flex;
+		flex-direction: column;
 		width: 100%;
 		padding: 10px;
+	}
+	
+	.address_text {
+		display: flex;
+		justify-content: space-between;
 	}
 
 	.address_input {
@@ -52,7 +62,7 @@
 		border: 1.5px #404040 solid;
 		font-size: 14pt;
 		padding: 5px;
-		margin: 3px 0 3px 0;
+		margin: 4px 0;
 	}
 
 	.address_input:focus {
@@ -62,6 +72,7 @@
 	}
 
 	.invalid_text {
+		justify-content: flex-end;
 		color: red;
 	}
 
@@ -72,7 +83,7 @@
 		justify-content: space-around;
 		flex-wrap: wrap;
 		width: 100%;
-		padding: 5px;
+		padding: 10px;
 		background-color: lightblue;
 	}
 
@@ -88,13 +99,12 @@
 		display: flex;
 		flex-direction: row:
 		justify-content: flex-end;
-		padding: 2px;
+		padding: 3px;
 	}
 
 	.uri_label_and_input_container input {
 		font-size: 12pt;
 		min-width: 170px;
-		padding: 2px;
 	}
 
 	.uri_label_and_input_container label {
@@ -118,7 +128,7 @@
 	.custom_input {
 		width: 100%;
 		font-size: 12pt;
-		padding: 2px;
+		margin: 3px 0;
 	}
 
 	.qr_code_string {
@@ -150,8 +160,9 @@
 	<div class="page-container">
 		<div class="input-container">
 			<div class="address_section"> 
-				<label>Enter Bitcoin Address: </label><br><input class="address_input" type="text" id="address" autocomplete="off" placeholder="Enter Bitcoin address." autofocus spellcheck="false">
-				<div class="invalid_text" id="invalid_text">Invalid Bitcoin Address!</div>
+				<div class="address_text"><label>Enter Bitcoin Address: </label><div class="invalid_text" id="invalid_text">Invalid Bitcoin Address!</div></div>
+				<input class="address_input" type="text" id="address" autocomplete="off" placeholder="Enter Bitcoin address." autofocus spellcheck="false">
+				
 			</div>
 			<div class="uri_input_container">
 				<div name="amount-label-message" class="container_of_textboxes">
