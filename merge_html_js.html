@@ -133,6 +133,8 @@
 	.qr_code_string {
 		padding: 10px;
 		background-color: #ff751a;
+
+		background-img: url('img_qr.png');
 	}
 
 	/*The 2nd item of page-container*/
@@ -143,6 +145,15 @@
 		padding: 25px;
         border-radius: 10px;
 		background-color: #A9A9A9;
+		background-size: auto;
+		background-repeat: no-repeat;
+		background-position: 25px 25px;
+		background-image: url('img_qr.png');
+	}
+
+	.the_qr_code {
+		width: 256px;
+		height: 256px;
 	}
 
 	/*2nd item of qr_image_container*/
@@ -182,12 +193,13 @@
 			</div>
 		</div>
 		<div class="qr_image_container">
-			<br>
-			<div id="qrcode_id"></div>
+			<div class="the_qr_code" id="qrcode_id"></div>
 			<input class="download_button" type="button" id="dwn-btn" value="Download QR Code">
 		</div>
 	</div>
 
+<input type="button" value="Error bitcoin address" onclick="address_error()"</input>
+<input type="button" value="Valid bitcoin address" onclick="address_valid()"</input>
 
 <script src="qrcode.js"></script>
 <script src="wallet-address-validator.js"></script>
@@ -331,9 +343,10 @@ function determine_qr_code_value(){
 }
 
 function hide_qrcode(){
+    //Don't show a QR Code unless it is a valid one.
     document.getElementById('your_address_id').innerHTML = "";
     document.getElementById('qrcode_id').innerHTML = "";
-    //Don't show a QR Code unless it is a valid one.
+
         document.getElementById("dwn-btn").style.visibility = "hidden";
 }
 
@@ -348,6 +361,10 @@ function make_qrcode(input_text){
         qrcode.makeCode(input_text);
         document.getElementById("dwn-btn").style.visibility = "visible";
     }
+	else {
+//alert("try to make img");
+//		document.getElementById('qrcode_id').src = "img_qr.png";
+	}
 }
 
 //Update page based on change of page_change variable (which records the most recent change to the page by the user).
@@ -630,6 +647,9 @@ console.log("qr code value: " + qr_code_value);
         document.getElementById("validitation_text").innerHTML = "Invalid Bitcoin address!";
         document.getElementById("validitation_text").style.color = "red";
         address_valid_state = "false";
+
+
+
     }
     function address_valid (){
         document.getElementById("address").style.border = "2px solid #00b300";
