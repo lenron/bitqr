@@ -27,6 +27,14 @@
 		box-shadow: 0 0 1px 4px rgb(77, 184, 255, .7);
 	}
 
+	input[type=text]:enabled {
+		background: white;
+	}
+
+	input[type=text]:disabled {
+		background: #dddddd;
+	}
+
 	.page-container {
 		display: flex;
 		flex-direction: row;
@@ -206,7 +214,6 @@
 <script type="text/javascript">
 
 /*
-	var address_valid_state = "unset";
 	function address_error (){
 		document.getElementById("address").style.border = "2px solid red";
 		document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(255, 0, 0, .4)";
@@ -393,10 +400,10 @@ function update_page(page_change){
                 uri_checkbox_obj.disabled = true;
                 store_values();
             }
-            addr_obj.value = "";
+    /*        addr_obj.value = "";
             amt_obj.value = "";
             label_obj.value = "";
-            message_obj.value = "";
+            message_obj.value = "";     */
         }
     }
     else if (page_change == 'uri_change'){  //store value
@@ -450,14 +457,12 @@ function check_address(){
         addr_empty = false;
         //This calls the validate function in wallet-address-validator.js file, which returns true or false. 
         addr_valid = WAValidator.validate(addr_obj.value);
+        //Display whether address is valid to user.
         if (addr_valid){ 
-            //Display whether address is valid to user.
-            //addr_valid_html_obj.innerHTML = "yes";
-            //addr_valid_html_obj.style.color = "black";
+			address_valid();
         }
         else {
-            //addr_valid_html_obj.innerHTML = "no";
-            //addr_valid_html_obj.style.color = "red";
+			address_error();
         }
     }
 }
@@ -647,9 +652,6 @@ console.log("qr code value: " + qr_code_value);
         document.getElementById("validitation_text").innerHTML = "Invalid Bitcoin address!";
         document.getElementById("validitation_text").style.color = "red";
         address_valid_state = "false";
-
-
-
     }
     function address_valid (){
         document.getElementById("address").style.border = "2px solid #00b300";
