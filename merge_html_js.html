@@ -610,8 +610,13 @@ console.log("qr code value: " + qr_code_value);
 	//Keep the address input behaving like it's empty when it's empty.
 	if( document.getElementById("address").value == ""){
 			address_border_on_empty();			
-            document.getElementById("address").style.boxShadow = "none";
 	}
+	//If focus is NOT the address, remove border.
+	if( document.activeElement.id != "address" ){
+		document.getElementById("address").style.boxShadow = "none";
+	}
+//get focused element's id:
+//document.activeElement.id
 }
 
 
