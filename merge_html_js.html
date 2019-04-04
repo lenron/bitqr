@@ -27,12 +27,13 @@
 		box-shadow: 0 0 1px 4px rgb(77, 184, 255, .7);
 	}
 
-	input[type=text]:enabled {
+	input[type="text"]:enabled {
 		background: white;
 	}
 
-	input[type=text]:disabled {
+	input[type="text"]:disabled {
 		background: #dddddd;
+		box-shadow: none;
 	}
 
 	.page-container {
@@ -75,7 +76,7 @@
 
 	.address_input:focus {
 		outline: 0;
-		border: 1.5px solid #00b300;
+		border: 1.5px solid #404040;
 		box-shadow: 0 0 1px 4px rgb(0, 255, 0, .4);
 	}
 
@@ -125,7 +126,7 @@
 		justify-content: center;
 	}
 
-	/*3rd item of input-container*/
+	/*3rd item of input-container*/	
 	.custom_section {
 		width: 100%;
 		background-color: #ff99ff;
@@ -180,7 +181,7 @@
 		<div class="input-container">
 			<div class="address_section"> 
 				<div class="address_text"><label>Enter Bitcoin Address: </label><div class="validitation_text" id="validitation_text">test</div></div>
-				<input class="address_input" type="text" id="address" autocomplete="off" placeholder="Enter Bitcoin address." spellcheck="false" onfocusout="lose_address_focus()" onfocus="gain_address_focus()" oninput="gen_qrcode('addr_change')">
+				<input class="address_input" type="text" id="address" autofocus autocomplete="off" placeholder="Your Bitcoin address here." spellcheck="false" onfocusout="lose_address_focus()" onfocus="gain_address_focus()" oninput="gen_qrcode('addr_change')">
 				
 			</div>
 			<div class="uri_input_container">
@@ -206,29 +207,29 @@
 		</div>
 	</div>
 
-<input type="button" value="Error bitcoin address" onclick="address_error()"</input>
-<input type="button" value="Valid bitcoin address" onclick="address_valid()"</input>
+<input type="button" value="Error bitcoin address" onclick="address_border_on_error()"</input>
+<input type="button" value="Valid bitcoin address" onclick="address_border_on_valid()"</input>
 
 <script src="qrcode.js"></script>
 <script src="wallet-address-validator.js"></script>
 <script type="text/javascript">
 
 /*
-	function address_error (){
+	function address_border_on_error (){
 		document.getElementById("address").style.border = "2px solid red";
 		document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(255, 0, 0, .4)";
 		document.getElementById("validitation_text").style.visibility = "visible";
 		document.getElementById("validitation_text").innerHTML = "Invalid Bitcoin address!";
 		document.getElementById("validitation_text").style.color = "red";
-		address_valid_state = "false";
+		address_border_on_valid_state = "false";
 	}
-	function address_valid (){
+	function address_border_on_valid (){
 		document.getElementById("address").style.border = "2px solid #00b300";
 		document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(0, 255, 0, .4)";
 		document.getElementById("validitation_text").style.visibility = "visible";
 		document.getElementById("validitation_text").innerHTML = "Valid Bitcoin address.";
 		document.getElementById("validitation_text").style.color = "green";
-		address_valid_state = "true";
+		address_border_on_valid_state = "true";
 	}
 	function lose_address_focus(){
 		if (address_valid_state != "unset"){
@@ -237,10 +238,10 @@
 	}
 	function gain_address_focus(){
 		if (address_valid_state == "true"){
-			address_valid();
+			address_border_on_valid();
 		}
 		else if (address_valid_state == "false"){
-			address_error();
+			address_border_on_error();
 		}
 	}
 //<!-- COMMENT  filebreak  -->
@@ -280,7 +281,7 @@ var custom_empty = true;
 var custom_empty_state_changed = false;
 
 var uri_checked = false;
-    var address_valid_state = "unset";
+    var address_valid_state = "empty";
 
 function determine_qr_code_value(){
     var qr_value = "";
@@ -379,7 +380,7 @@ function make_qrcode(input_text){
 function update_page(page_change){
     if (page_change == 'custom_change'){
         if (custom_empty){
-            if (custom_empty_state_changed){
+            if (custom_empty_state_changed){  //why do we need this variable? -Aaron
                 addr_obj.disabled = false;
                 amt_obj.disabled = false;
                 label_obj.disabled = false;
@@ -452,17 +453,16 @@ function check_address(){
         addr_empty = true;
         addr_valid = false;
     }
-    //Otherwise, check to see if address is valid.
-    else {
+    else {  //Otherwise, check to see if address is valid.
         addr_empty = false;
         //This calls the validate function in wallet-address-validator.js file, which returns true or false. 
         addr_valid = WAValidator.validate(addr_obj.value);
         //Display whether address is valid to user.
         if (addr_valid){ 
-			address_valid();
+			address_border_on_valid();
         }
         else {
-			address_error();
+			address_border_on_error();
         }
     }
 }
@@ -606,12 +606,18 @@ console.log("qr code value: " + qr_code_value);
         //Clear the last QR Code.
         hide_qrcode();
     make_qrcode(qr_code_value);
+	
+	//Keep the address input behaving like it's empty when it's empty.
+	if( document.getElementById("address").value == ""){
+			address_border_on_empty();			
+            document.getElementById("address").style.boxShadow = "none";
+	}
 }
 
 
     // Use a default bitcoin address onload to show the user that the page works.
     // Zero everything else out.
-    document.getElementById("address").value = "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2";
+    //document.getElementById("address").value = "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2";
     document.getElementById("amount").value = "";
     document.getElementById("label").value = "";
     document.getElementById("message").value = "";
@@ -645,7 +651,14 @@ console.log("qr code value: " + qr_code_value);
         document.body.removeChild(element);
     }
 
-    function address_error (){
+	function address_border_on_empty (){
+		document.getElementById("address").style.border = "2px solid #404040";
+        document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(77, 184, 255, .7)";
+        document.getElementById("validitation_text").style.visibility = "hidden";
+        address_valid_state = "empty";
+
+	}
+    function address_border_on_error (){
         document.getElementById("address").style.border = "2px solid red";
         document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(255, 0, 0, .4)";
         document.getElementById("validitation_text").style.visibility = "visible";
@@ -653,7 +666,7 @@ console.log("qr code value: " + qr_code_value);
         document.getElementById("validitation_text").style.color = "red";
         address_valid_state = "false";
     }
-    function address_valid (){
+    function address_border_on_valid (){
         document.getElementById("address").style.border = "2px solid #00b300";
         document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(0, 255, 0, .4)";
         document.getElementById("validitation_text").style.visibility = "visible";
@@ -662,21 +675,23 @@ console.log("qr code value: " + qr_code_value);
         address_valid_state = "true";
     }
     function lose_address_focus(){
-        if (address_valid_state != "unset"){
-            document.getElementById("address").style.boxShadow = "none";
-        }
+    	document.getElementById("address").style.boxShadow = "none";
     }
     function gain_address_focus(){
+//alert("alert");
         if (address_valid_state == "true"){
-            address_valid();
+            address_border_on_valid();
         }
         else if (address_valid_state == "false"){
-            address_error();
+            address_border_on_error();
         }
+		else if (address_valid_state == "empty"){
+			address_border_on_empty();
+		}
     }
 
 
-
+			
 
 </script>
 </body>
