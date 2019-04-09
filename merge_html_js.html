@@ -40,6 +40,7 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
+		align-items: flex-start;
 		justify-content: space-around;
 	}
 
@@ -50,6 +51,7 @@
 		flex-direction: column;
 		align-items: center; 
 		border-radius: 10px;
+		padding-bottom: 10px;
 		background-color: #A9A9A9;
 	}
 
@@ -140,10 +142,11 @@
 	}
 
 	.qr_code_string {
-		padding: 10px;
-		background-color: #ff751a;
-
-		background-img: url('qr_placeholder.png');
+		width: 100%;
+		word-wrap: break-word;
+	}
+	#your_address_id {
+		word-wrap: break-word;
 	}
 
 	/*The 2nd item of page-container*/
@@ -151,12 +154,13 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;  /*cross axis (i.e. the horizontal axis for our column) centered.*/
-		padding: 25px;
+		max-width: 35%;
+		padding: 15px;
         border-radius: 10px;
 		background-color: #A9A9A9;
 		background-size: auto;
 		background-repeat: no-repeat;
-		background-position: 25px 25px;
+		background-position: center 15px;
 		background-image: url('qr_placeholder.png');
 	}
 
@@ -197,12 +201,12 @@
 			<div class="custom_section">
 				<label>Enter Custom String: </label><br><input class="custom_input" oninput="gen_qrcode('custom_change')" type="text" id="custom_id" autocomplete="off">
 			</div>
-			<div class="qr_code_string">
-				QR String:<p id=your_address_id></p>
-			</div>
 		</div>
 		<div class="qr_image_container">
 			<div class="the_qr_code" id="qrcode_id"></div>
+			<div class="qr_code_string">
+				<p id=your_address_id></p>
+			</div>
 			<input class="download_button" type="button" id="dwn-btn" value="Download QR Code">
 		</div>
 	</div>
@@ -210,40 +214,6 @@
 <script src="qrcode.js"></script>
 <script src="wallet-address-validator.js"></script>
 <script type="text/javascript">
-
-/*
-	function address_border_on_error (){
-		document.getElementById("address").style.border = "2px solid red";
-		document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(255, 0, 0, .4)";
-		document.getElementById("validitation_text").style.visibility = "visible";
-		document.getElementById("validitation_text").innerHTML = "Invalid Bitcoin address!";
-		document.getElementById("validitation_text").style.color = "red";
-		address_border_on_valid_state = "false";
-	}
-	function address_border_on_valid (){
-		document.getElementById("address").style.border = "2px solid #00b300";
-		document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(0, 255, 0, .4)";
-		document.getElementById("validitation_text").style.visibility = "visible";
-		document.getElementById("validitation_text").innerHTML = "Valid Bitcoin address.";
-		document.getElementById("validitation_text").style.color = "green";
-		address_border_on_valid_state = "true";
-	}
-	function lose_address_focus(){
-		if (address_valid_state != "unset"){
-			document.getElementById("address").style.boxShadow = "none";
-		}
-	}
-	function gain_address_focus(){
-		if (address_valid_state == "true"){
-			address_border_on_valid();
-		}
-		else if (address_valid_state == "false"){
-			address_border_on_error();
-		}
-	}
-//<!-- COMMENT  filebreak  -->
-*/
-
 
 //HTML element ID variables.
 var uri_checkbox_obj;
@@ -612,10 +582,9 @@ console.log("qr code value: " + qr_code_value);
 	if( document.activeElement.id != "address" ){
 		document.getElementById("address").style.boxShadow = "none";
 	}
-//get focused element's id:
-//document.activeElement.id
 }
 
+//break
 
     // Use a default bitcoin address onload to show the user that the page works.
     // Zero everything else out.
@@ -680,7 +649,6 @@ console.log("qr code value: " + qr_code_value);
     	document.getElementById("address").style.boxShadow = "none";
     }
     function gain_address_focus(){
-//alert("alert");
         if (address_valid_state == "true"){
             address_border_on_valid();
         }
