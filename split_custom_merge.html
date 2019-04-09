@@ -40,14 +40,19 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		align-items: flex-start;
+		align-items: flex-start; /*keeps the elements from snapping to the same height value*/
 		justify-content: space-around;
+	}
+	.input-and-custom-container {
+		width: 60%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		border: 2px solid black;
 	}
 
 	/*The 1st item of page-container*/
 	.input-container {
-		flex-grow: 1;
-		width: 60%;
 		display: flex;
 		flex-direction: column;
 		align-items: center; 
@@ -132,7 +137,6 @@
 	/*3rd item of input-container*/	
 	.custom_section {
 		/*2nd item of page-container*/
-		flex-grow: 2;
 		background-color: #ff99ff;
 		padding: 10px;
 	}
@@ -153,7 +157,6 @@
 
 	/*The 2nd item of page-container*/
 	.qr_image_container {
-		flex-grow: 3;
 		display: flex;
 		flex-direction: column;
 		align-items: center;  /*cross axis (i.e. the horizontal axis for our column) centered.*/
@@ -185,26 +188,27 @@
         <h3>Bitcoin QR Code Generator</h3>
     </div>
 	<div class="page-container">
-		<div class="input-container">
-			<div class="address_section"> 
-				<div class="address_text"><label>Enter Bitcoin Address: </label><div class="validitation_text" id="validitation_text">test</div></div>
-				<input class="address_input" type="text" id="address" autofocus autocomplete="off" placeholder="Your Bitcoin address here." spellcheck="false" onfocusout="lose_address_focus()" onfocus="gain_address_focus()" oninput="gen_qrcode('addr_change')">
-				
-			</div>
-			<div class="uri_input_container">
-				<div name="amount-label-message" class="container_of_textboxes">
-					<div class="uri_label_and_input_container"><label>Amount: </label><input oninput="gen_qrcode('amt_change')" type="text" id="amount" autocomplete="off"></div>
-					<div class="uri_label_and_input_container"><label>Label: </label><input oninput="gen_qrcode('label_change')" type="text" id="label" autocomplete="off"></div>
-					<div class="uri_label_and_input_container"><label>Message: </label><input oninput="gen_qrcode('message_change')" type="text" id="message" autocomplete="off"></div>
+		<div class="input-and-custom-container">
+			<div class="input-container">
+				<div class="address_section"> 
+					<div class="address_text"><label>Enter Bitcoin Address: </label><div class="validitation_text" id="validitation_text">test</div></div>
+					<input class="address_input" type="text" id="address" autofocus autocomplete="off" placeholder="Your Bitcoin address here." spellcheck="false" onfocusout="lose_address_focus()" onfocus="gain_address_focus()" oninput="gen_qrcode('addr_change')">
 				</div>
-				<div class="uricheckbox">
-					<p>Bitcoin URI <input type="checkbox" id="uri" oninput="gen_qrcode('uri_change')"></p>
+				<div class="uri_input_container">
+					<div name="amount-label-message" class="container_of_textboxes">
+						<div class="uri_label_and_input_container"><label>Amount: </label><input oninput="gen_qrcode('amt_change')" type="text" id="amount" autocomplete="off"></div>
+						<div class="uri_label_and_input_container"><label>Label: </label><input oninput="gen_qrcode('label_change')" type="text" id="label" autocomplete="off"></div>
+						<div class="uri_label_and_input_container"><label>Message: </label><input oninput="gen_qrcode('message_change')" type="text" id="message" autocomplete="off"></div>
+					</div>
+					<div class="uricheckbox">
+						<p>Bitcoin URI <input type="checkbox" id="uri" oninput="gen_qrcode('uri_change')"></p>
+					</div>
 				</div>
 			</div>
-		</div>
 			<div class="custom_section">
 				<label>Enter Custom String: </label><br><input class="custom_input" oninput="gen_qrcode('custom_change')" type="text" id="custom_id" autocomplete="off">
 			</div>
+		</div>
 		<div class="qr_image_container">
 			<div class="the_qr_code" id="qrcode_id"></div>
 			<div class="qr_code_string">
