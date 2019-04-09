@@ -337,8 +337,6 @@ function make_qrcode(input_text){
         document.getElementById("dwn-btn").style.visibility = "visible";
     }
 	else {
-//alert("try to make img");
-//		document.getElementById('qrcode_id').src = "qr_placeholder.png";
 	}
 }
 
@@ -397,6 +395,15 @@ function update_page(page_change){
     }
     //Run this again to update variables to the latest page updates.
     get_current_page_state();
+
+	//These two if statements keep the address input border and valid text acting properly when entering into the custom input.
+	if( document.getElementById("address").value == ""){
+			address_border_on_empty();			
+	}
+	//If focus is NOT the address, remove border.
+	if( document.activeElement.id != "address" ){
+		document.getElementById("address").style.boxShadow = "none";
+	}
 }
 
 
@@ -574,14 +581,6 @@ console.log("qr code value: " + qr_code_value);
         hide_qrcode();
     make_qrcode(qr_code_value);
 	
-	//Keep the address input behaving like it's empty when it's empty.
-	if( document.getElementById("address").value == ""){
-			address_border_on_empty();			
-	}
-	//If focus is NOT the address, remove border.
-	if( document.activeElement.id != "address" ){
-		document.getElementById("address").style.boxShadow = "none";
-	}
 }
 
 //break
