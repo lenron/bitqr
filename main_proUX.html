@@ -12,7 +12,17 @@
 
 	body {
 		margin: 0;
-		background-color: #FBFBFB;
+		background-color: #FAFAFA;
+	}
+
+	input[type="text"] {
+		width: 100%;
+		font-size: 16px;
+		padding: 6px;
+		border: 1px solid #D3E9F4;
+		border-radius: 4px;
+		color: #3F3F3F;
+		background-color: #FFFFFF;
 	}
 
 	.header {
@@ -51,6 +61,8 @@
 		flex-direction: column;
 		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.05);
 		border-radius: 8px;
+		font-size: 16px;
+		color: #3F3F3F;
 		background-color: #FFFFFF;	
 	}
 
@@ -75,11 +87,11 @@
 
 	.tab button {
 		width: 50%;
+		font-size: 16px;
 		background-color: inherit;
 		border: none;
 		outline: none;
 		padding: 15px;
-		font-size: 15px;
 		color: gray;
 /*		transition: 0.3s;  /*Kinda makes it look weird I guess?*/
 	}
@@ -96,6 +108,9 @@
 
 	.tabcontent {
 		display: none;
+		flex-direction: column;
+		padding: 24px;
+		
 	}
 
 </style></head>
@@ -111,10 +126,12 @@
 				<button class="tablinks" onclick="selectTab(event, 'custom_tab')">Custom String QR Code</button>
 			</div>
 			<div id="address_tab" class="tabcontent">
-				Bitcoin Address
+				<label>Bitcoin Address</label>
+				<input type="text" spellcheck="false">
 			</div>
 			<div id="custom_tab" class="tabcontent">
-				Custom String
+				<label>Custom String</label>
+				<input type="text" >
 			</div>
 		</div>
 		
