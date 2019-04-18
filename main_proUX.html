@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"> 
 <link href="https://fonts.googleapis.com/css?family=Khula:400,700" rel="stylesheet">
-<!-- COMMENT  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bitcoin QR Code Generator</title>
 <style>
 
@@ -22,8 +22,8 @@
 		font-size: 23px;
 		font-weight: bold;
 		padding: 13px 16px 0;
-		background-color: #FFFFFF;
 		border-bottom: 2px solid #f2f2f2;
+		background-color: #FFFFFF;
 	} 
 
 	.header-text {
@@ -31,17 +31,61 @@
 		left: 5px;
 	}
 
-	.t {
+	.header-icon {
 		position: relative;
 		top: 3px;
 	}
 
+	.page-container {
+		display: flex;
+		flex-direction: row;
+	/*	flex-wrap: wrap;  /*Not sure if we want wrapping behavior yet*/
+		align-items: flex-start;
+		justify-content: space-around;
+	}
+
+	.input-container {
+		width: 50%;
+		display: flex;
+		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.05);
+		border-radius: 8px;
+		background-color: #FFFFFF;	
+	}
+
+
 </style></head>
 <body>
 	<div class="header">
-		<div class="t"><img src="qr_icon.png"></div>
+		<div class="header-icon"><img src="qr_icon.png"></div>
 		<div class="header-text"><label> Bitcoin QR</label></div>
 	</div>
+	<div class="page-container">
+		<div class="input-container">
+			Test
+		</div>
+		
+		<div class="qr_image_container">
 
-
+		</div>
+	</div>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
