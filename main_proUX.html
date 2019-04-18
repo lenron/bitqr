@@ -105,7 +105,7 @@
 	<div class="page-container">
 		<div class="input-container">
 			<div class="tab">
-				<button class="tablinks" onclick="selectTab(event, 'address_tab')">Bitcoin QR Code</button>
+				<button class="tablinks" onclick="selectTab(event, 'address_tab')" id="defaultOpen">Bitcoin QR Code</button>
 				<button class="tablinks" onclick="selectTab(event, 'custom_tab')">Custom String QR Code</button>
 			</div>
 			<div id="address_tab" class="tabcontent">
@@ -121,8 +121,11 @@
 		</div>
 	</div>
 <script>
+//Not sure where to put this yet. Sets the default open tab.
+document.getElementById("defaultOpen").click();
 
-	//function from w3schools: https://www.w3schools.com/howto/howto_js_tabs.asp
+
+	//Function from w3schools: https://www.w3schools.com/howto/howto_js_tabs.asp
 	function selectTab(evt, actionToTake) {
 		var i, tabcontent, tablinks;
 		tabcontent = document.getElementsByClassName("tabcontent");
