@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"> 
-<link href="https://fonts.googleapis.com/css?family=Khula" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Khula:400,700" rel="stylesheet">
 <!-- COMMENT  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
 <title>Bitcoin QR Code Generator</title>
 <style>
@@ -11,18 +11,36 @@
 	}
 
 	body {
+		margin: 0;
 		background-color: #FBFBFB;
 	}
 
 	.header {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		font-size: 23px;
+		font-weight: bold;
+		padding: 13px 16px 0;
 		background-color: #FFFFFF;
-		border-bottom: 2px black solid;
+		border-bottom: 2px solid #f2f2f2;
+	} 
+
+	.header-text {
+		position: relative;
+		left: 5px;
+	}
+
+	.t {
+		position: relative;
+		top: 3px;
 	}
 
 </style></head>
 <body>
 	<div class="header">
-		<img src="qr_icon.png"> Bitcoin QR
+		<div class="t"><img src="qr_icon.png"></div>
+		<div class="header-text"><label> Bitcoin QR</label></div>
 	</div>
 
 
