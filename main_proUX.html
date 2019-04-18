@@ -70,7 +70,7 @@
 
 	.tab {
 		display: flex;
-		border-bottom: 1px solid #D3E9F4;
+		border-bottom: 2px solid #D3E9F4;
 	}
 
 	.tab button {
@@ -80,7 +80,8 @@
 		outline: none;
 		padding: 15px;
 		font-size: 15px;
-		transition: 0.3s;
+		color: gray;
+/*		transition: 0.3s;  /*Kinda makes it look weird I guess?*/
 	}
 
 	/* Change background color of buttons on hover */
@@ -89,7 +90,8 @@
 	}
 
 	.tab button.active {
-		background-color: #ccc;
+		color: black;
+		border-bottom: 2px solid #3D67FF;
 	}
 
 	.tabcontent {
@@ -121,9 +123,8 @@
 		</div>
 	</div>
 <script>
-//Not sure where to put this yet. Sets the default open tab.
-document.getElementById("defaultOpen").click();
-
+	//Not sure where to put this yet. Sets the default open tab.
+	document.getElementById("defaultOpen").click();
 
 	//Function from w3schools: https://www.w3schools.com/howto/howto_js_tabs.asp
 	function selectTab(evt, actionToTake) {
