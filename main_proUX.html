@@ -92,6 +92,10 @@
 		background-color: #ccc;
 	}
 
+	.tabcontent {
+		display: none;
+	}
+
 </style></head>
 <body>
 	<div class="header">
@@ -101,8 +105,8 @@
 	<div class="page-container">
 		<div class="input-container">
 			<div class="tab">
-				<button class="tablinks" onclick="openCity(event, 'address_tab')">Bitcoin QR Code</button>
-				<button class="tablinks" onclick="openCity(event, 'custom_tab')">Custom String QR Code</button>
+				<button class="tablinks" onclick="selectTab(event, 'address_tab')">Bitcoin QR Code</button>
+				<button class="tablinks" onclick="selectTab(event, 'custom_tab')">Custom String QR Code</button>
 			</div>
 			<div id="address_tab" class="tabcontent">
 				Bitcoin Address
@@ -117,9 +121,20 @@
 		</div>
 	</div>
 <script>
-	function openCity(evt, actionToTake) {
 
-
+	//function from w3schools: https://www.w3schools.com/howto/howto_js_tabs.asp
+	function selectTab(evt, actionToTake) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(actionToTake).style.display = "flex";
+		evt.currentTarget.className += " active";
 	}
 
 </script>
