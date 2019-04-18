@@ -41,7 +41,8 @@
 		flex-direction: row;
 	/*	flex-wrap: wrap;  /*Not sure if we want wrapping behavior yet*/
 		align-items: flex-start;
-		justify-content: space-around;
+		justify-content: space-evenly;
+		padding-top: 48px;
 	}
 
 	.input-container {
@@ -52,6 +53,18 @@
 		background-color: #FFFFFF;	
 	}
 
+	.qr_image_container {
+		width: 35%;
+		height: 300px;  /*just to get it to show up - change later*/
+		display: flex;
+		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.05);
+		border-radius: 8px;
+		background-color: #FFFFFF;	
+		background-size: auto;
+		background-repeat: no-repeat;
+		background-position: center 15px;
+		background-image: url('qr_placeholder.png');
+	}
 
 </style></head>
 <body>
