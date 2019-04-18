@@ -74,13 +74,29 @@
 	</div>
 	<div class="page-container">
 		<div class="input-container">
-			Test
+			<div class="tab">
+				<button class="tablinks" onclick="openCity(event, 'address_tab')">Bitcoin QR Code</button>
+				<button class="tablinks" onclick="openCity(event, 'custom_tab')">Custom String QR Code</button>
+			</div>
+			<div id="address_tab" class="tabcontent">
+				Bitcoin Address
+			</div>
+			<div id="custom_tab" class="tabcontent">
+				Custom String
+			</div>
 		</div>
 		
 		<div class="qr_image_container">
 
 		</div>
 	</div>
+<script>
+	function openCity(evt, actionToTake) {
+
+
+	}
+
+</script>
 </body>
 
 
