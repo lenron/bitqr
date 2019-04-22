@@ -71,20 +71,6 @@
 		background-color: #FFFFFF;	
 	}
 
-/* Move down when convenient */
-	.qr_image_container {
-		width: 35%;
-		height: 300px;  /*just to get it to show up - change later*/
-		display: flex;
-		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.05);
-		border-radius: 8px;
-		background-color: #FFFFFF;	
-		background-size: auto;
-		background-repeat: no-repeat;
-		background-position: center 15px;
-		background-image: url('qr_placeholder.png');
-	}
-
 	.tab {
 		display: flex;
 		border-bottom: 2px solid #D3E9F4;
@@ -132,6 +118,37 @@
 
 	}
 
+/* Move down when convenient */
+	.qr_image_container {
+		padding: 34px 50px;
+		width: 35%;
+		min-height: 392px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		align-content: flex-end;
+		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.05);
+		border-radius: 8px;
+		background-color: #FFFFFF;	
+		background-size: auto;
+		background-repeat: no-repeat;
+		background-position: center 34px;
+		background-image: url('qr_placeholder.png');
+	}
+
+	.the_qr_code {
+		height: 256px;
+		width: 256px;
+	}
+
+	#your_address_id {
+		font-size: 14px;
+	}
+
+	#dwn-btn {
+		display: none;
+	}
+
 </style></head>
 <body>
 	<div class="header">
@@ -168,7 +185,12 @@
 		</div>
 		
 		<div class="qr_image_container">
-
+			<div class="the_qr_code" id="qrcode_id"></div>
+			<div class="qr_code_string">
+				<strong>Your QR Code will show up here!</strong></br>
+				<label id=your_address_id>Add information to generate QR Code.</label>
+			</div>
+			<input class="download_button" type="button" id="dwn-btn" value="Download QR Code">
 		</div>
 	</div>
 <script>
