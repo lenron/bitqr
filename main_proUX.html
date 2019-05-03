@@ -26,9 +26,24 @@
 	}
 
 	input[type="checkbox"] {
+		display: none;
+	}
+	
+	input[type="checkbox"] + label {
+		display: flex;
 		height: 18px;
 		width: 18px;
+		background: #666699;
 	}
+
+	input[type="checkbox"]:checked + label {
+		display: flex;
+		background: #00ff00;
+		height: 18px;
+		width: 18px;
+
+	}
+
 
 	.header {
 		display: flex;
@@ -149,6 +164,14 @@
 		display: none;
 	}
 
+	.checkbox_container {
+		display: flex;
+	}
+	
+	.checkbox_label {
+		padding: 0 0 0 8px;
+	}
+
 </style></head>
 <body>
 	<div class="header">
@@ -167,7 +190,14 @@
 					<input type="text" spellcheck="false">
 				</div>
 				<div class="uri-container">
-					<input type="checkbox"><label>Bitcoin URI</label><br>
+					<div class="checkbox_container">
+						<div>
+							<input type="checkbox" id="checkbox_1">
+							<label for="checkbox_1"></label>
+						</div>
+						<div class="checkbox_label"><label>Bitcoin URI</label></div>
+					</div>
+					<br>
 					<label>Amount</label>
 					<input type="text" >
 					<label>Label</label>
@@ -200,14 +230,19 @@
 	//Function from w3schools: https://www.w3schools.com/howto/howto_js_tabs.asp
 	function selectTab(evt, actionToTake) {
 		var i, tabcontent, tablinks;
+		//create list of classes of type tabcontent
 		tabcontent = document.getElementsByClassName("tabcontent");
 		for (i = 0; i < tabcontent.length; i++) {
+			//make invisible
 			tabcontent[i].style.display = "none";
 		}
+		//create list of the tab buttons
 		tablinks = document.getElementsByClassName("tablinks");
 		for (i = 0; i < tablinks.length; i++) {
+			//make all tab buttons inactive
 			tablinks[i].className = tablinks[i].className.replace(" active", "");
 		}
+		//whichever tab was clicked on, display that tab as active and its content as visible (flex)
 		document.getElementById(actionToTake).style.display = "flex";
 		evt.currentTarget.className += " active";
 	}
