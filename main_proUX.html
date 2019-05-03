@@ -33,17 +33,24 @@
 		display: flex;
 		height: 18px;
 		width: 18px;
-		background: #666699;
+		background: #666699;	/*switch with custom checkbox image for unchecked*/
 	}
 
 	input[type="checkbox"]:checked + label {
 		display: flex;
-		background: #00ff00;
+		background: #00ff00;	/*switch with custom checkbox image for checked*/
 		height: 18px;
 		width: 18px;
 
 	}
 
+	.checkbox_container {
+		display: flex;
+	}
+
+	.checkbox_label {
+		padding: 0 0 0 8px;
+	}
 
 	.header {
 		display: flex;
@@ -163,14 +170,10 @@
 	#dwn-btn {
 		display: none;
 	}
-
-	.checkbox_container {
-		display: flex;
-	}
-	
-	.checkbox_label {
-		padding: 0 0 0 8px;
-	}
+.address_input {
+	background: url(valid.png) no-repeat scroll 3px 3px;
+	background-position: right;
+}
 
 </style></head>
 <body>
@@ -187,7 +190,7 @@
 			<div id="address_tab" class="tabcontent">
 				<div class="address-container">
 					<label>Bitcoin Address</label>
-					<input type="text" spellcheck="false">
+					<input type="text" spellcheck="false" class="address_input">
 				</div>
 				<div class="uri-container">
 					<div class="checkbox_container">
