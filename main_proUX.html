@@ -122,10 +122,10 @@
 	.tabcontent {
 		display: none;
 		flex-direction: column;
-		
 	}
 
 	.address-container {
+/*		position: relative; /* for tooltip positioning */
 		padding: 24px;
 		border-bottom: 2px solid #D3E9F4;
 	}
@@ -133,6 +133,7 @@
 	.uri-container {
 		padding: 24px;
 		background-color: #FBFBFB;
+		border-radius: 8px;
 	}
 
 	.custom-container {
@@ -175,6 +176,11 @@
 	background-position: right;
 }
 
+.tooltiptext {
+	
+
+}
+
 </style></head>
 <body>
 	<div class="header">
@@ -191,6 +197,7 @@
 				<div class="address-container">
 					<label>Bitcoin Address</label>
 					<input type="text" spellcheck="false" class="address_input">
+					<span class="tooltiptext">Tooltip text</span>
 				</div>
 				<div class="uri-container">
 					<div class="checkbox_container">
