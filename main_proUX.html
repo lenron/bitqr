@@ -31,16 +31,22 @@
 	
 	input[type="checkbox"] + label {
 		display: flex;
-		height: 18px;
-		width: 18px;
-		background: #666699;	/*switch with custom checkbox image for unchecked*/
+		height: 22px;
+		width: 22px;
+		/*background: #FFFFFF;	/*switch with custom checkbox image for unchecked*/
+		background-image: url('checkbox_unchecked.png');
+		background-size: 22px;
+		background-repeat: no-repeat;
 	}
 
 	input[type="checkbox"]:checked + label {
 		display: flex;
-		background: #00ff00;	/*switch with custom checkbox image for checked*/
-		height: 18px;
-		width: 18px;
+		/*background: #00ff00;	/*switch with custom checkbox image for checked*/
+		background-image: url('checkbox_filled.png');
+		background-size: 22px;
+		background-repeat: no-repeat;
+		height: 22px;
+		width: 22px;
 
 	}
 
