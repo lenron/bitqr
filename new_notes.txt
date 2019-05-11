@@ -1,3 +1,0 @@
-1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2
-
-create html template, then fit logic inside
