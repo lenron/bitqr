@@ -198,6 +198,7 @@
   position: relative;
 }
 
+/* tooltip functionality added from w3schools */
 .addr_tooltip .tooltiptext {
   visibility: hidden;
   width: 120px;
@@ -280,7 +281,7 @@
 		<div class="qr_image_container">
 			<div class="the_qr_code" id="qrcode_id"></div>
 			<div class="qr_code_string">
-				<strong>Your QR Code will show up here!</strong></br>
+				<strong id="str_your_qr">Your QR Code will show up here!</strong></br>
 				<label id="qr_label_desc">Add information to generate QR Code.</label>
 				<p id="your_address_id"></p>
 			</div>
@@ -424,6 +425,10 @@ function hide_qrcode(){
     document.getElementById('qrcode_id').innerHTML = "";
 
         document.getElementById("dwn-btn").style.visibility = "hidden";
+		//document.getElementById("str_your_qr").style.visibility = "visible";
+		//document.getElementById("qr_label_desc").style.visibility = "visible";
+		document.getElementById("str_your_qr").innerHTML = "Your QR Code will show up here!";
+		document.getElementById("qr_label_desc").innerHTML = "Add information to generate QR Code.";
 }
 
 function make_qrcode(input_text){
@@ -436,11 +441,14 @@ console.log("input_text: " + input_text );
         qrcode = new QRCode("qrcode_id");
         qrcode.makeCode(input_text);
         document.getElementById("dwn-btn").style.visibility = "visible";
+		//document.getElementById("str_your_qr").style.visibility = "hidden";
+		//document.getElementById("qr_label_desc").style.visibility = "hidden";
+		document.getElementById("str_your_qr").innerHTML = "";
+		document.getElementById("qr_label_desc").innerHTML = "";
     }
 	else {
 	}
 }
-
 //Update page based on change of page_change variable (which records the most recent change to the page by the user).
 //The "page_change" variable is whichever field was modified (addr_change, amt_change, label_change, message_change, custom_change, or uri_change.)
 function update_page(page_change){
