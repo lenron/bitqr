@@ -238,11 +238,6 @@
   border-style: solid;
   border-color: black transparent transparent transparent;
 }
-
-.addr_tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-
 </style></head>
 <body>
 	<div class="header">
@@ -259,7 +254,7 @@
 				<div class="address-container">
 					<label>Bitcoin Address</label>
 					<div class="addr_tooltip">
-						<input type="text" spellcheck="false" class="address_input" id="address" oninput="gen_qrcode('addr_change')" onfocusout="lose_address_focus()" onfocus="gain_address_focus()">
+						<input type="text" spellcheck="false" class="address_input" id="address" oninput="gen_qrcode('addr_change')" onfocusout="lose_address_focus()" onfocus="gain_address_focus()" onmouseover="mouse_over()" onmouseout="mouse_out()">
 						<span class="tooltiptext" id="tooltip">Valid Address</span>
 					</div>
 				</div>
@@ -741,8 +736,6 @@ console.log("qr code value: " + qr_code_value);
 	function address_border_on_empty (){
         document.getElementById("address").style.boxShadow = "0 0 1px 2px #3D67FF";
         document.getElementById("address").style.background = "none";
-		document.getElementById("tooltip").style.visibility = "hidden";
-		//document.getElementById("tooltip").style.zIndex = "-100";
         address_valid_state = "empty";
 
 	}
@@ -750,7 +743,6 @@ console.log("qr code value: " + qr_code_value);
         document.getElementById("address").style.boxShadow = "0 0 1px 2px rgb(255, 0, 0, .4)";
         document.getElementById("address").style.background = "url(round-cancel-24px.svg) no-repeat scroll 3px 3px";
         document.getElementById("address").style.backgroundPosition = "98%";
-		document.getElementById("tooltip").style.visibility = "visible";
 		document.getElementById("tooltip").innerHTML = "Invalid Address";
         address_valid_state = "false";
     }
@@ -776,8 +768,23 @@ console.log("qr code value: " + qr_code_value);
 		}
     }
 
-
-			
+	function mouse_over(){
+		if ( address_valid_state === "true" || address_valid_state === "false" ){
+			document.getElementById("tooltip").style.visibility = "visible";
+		} 
+	}
+	function mouse_out(){
+		document.getElementById("tooltip").style.visibility = "hidden";
+	}
 
 </script>
 </body>
+
+
+
+
+
+
+
+
+
