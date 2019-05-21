@@ -328,7 +328,7 @@ var message_obj;
 var custom_obj;
 var addr_obj;
 
-//Set whenever user modifies an input box, let's gen_qrcode() subroutine know what input was changed.
+//Set whenever user modifies an input box, lets gen_qrcode() subroutine know what input was changed.
 var page_change;
 
 //Other variables.
@@ -696,18 +696,6 @@ console.log("qr code value: " + qr_code_value);
 }
 
 //break
-
-    // Use a default bitcoin address onload to show the user that the page works.
-    // Zero everything else out.
-    //document.getElementById("address").value = "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2";
-    document.getElementById("amount").value = "";
-    document.getElementById("label").value = "";
-    document.getElementById("message").value = "";
-    document.getElementById("custom_id").value = "";
-    document.getElementById("uri").checked = true;
-    
-    //See if we can generate a code.
-    //gen_qrcode();
 
     // Listen for download click.
     document.getElementById("dl-btn").addEventListener("click", function(){
