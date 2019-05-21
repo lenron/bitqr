@@ -15,6 +15,11 @@
 		background-color: #FAFAFA;
 	}
 
+	input:focus {
+		outline: 0;
+		box-shadow: 0 0 1px 2px #3D67FF;
+	}
+
 	input[type="text"] {
 		width: 100%;
 		font-size: 16px;
@@ -197,8 +202,6 @@
 /* Still a work in progress */
 .address_input {
 	padding-right: 36px !important;  /* don't cover up validity icon */
-	background: url(round-check_circle-24px.svg) no-repeat scroll 3px 3px;
-	background-position: 96%;
 }
 
 .addr_tooltip {
@@ -257,7 +260,7 @@
 					<label>Bitcoin Address</label>
 					<div class="addr_tooltip">
 						<input type="text" spellcheck="false" class="address_input" id="address" oninput="gen_qrcode('addr_change')" onfocusout="lose_address_focus()" onfocus="gain_address_focus()">
-						<span class="tooltiptext">Valid Address</span>
+						<span class="tooltiptext" id="tooltip">Valid Address</span>
 					</div>
 				</div>
 				<div class="uri-container">
@@ -736,26 +739,26 @@ console.log("qr code value: " + qr_code_value);
     }
 
 	function address_border_on_empty (){
-		document.getElementById("address").style.border = "2px solid #404040";
-        document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(77, 184, 255, .7)";
-     //   document.getElementById("validitation_text").style.visibility = "hidden";
+        document.getElementById("address").style.boxShadow = "0 0 1px 2px #3D67FF";
+        document.getElementById("address").style.background = "none";
+		document.getElementById("tooltip").style.visibility = "hidden";
+		//document.getElementById("tooltip").style.zIndex = "-100";
         address_valid_state = "empty";
 
 	}
     function address_border_on_error (){
-        document.getElementById("address").style.border = "2px solid red";
-        document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(255, 0, 0, .4)";
-     //   document.getElementById("validitation_text").style.visibility = "visible";
-     //   document.getElementById("validitation_text").innerHTML = "Invalid Bitcoin address!";
-     //   document.getElementById("validitation_text").style.color = "red";
+        document.getElementById("address").style.boxShadow = "0 0 1px 2px rgb(255, 0, 0, .4)";
+        document.getElementById("address").style.background = "url(round-cancel-24px.svg) no-repeat scroll 3px 3px";
+        document.getElementById("address").style.backgroundPosition = "98%";
+		document.getElementById("tooltip").style.visibility = "visible";
+		document.getElementById("tooltip").innerHTML = "Invalid Address";
         address_valid_state = "false";
     }
     function address_border_on_valid (){
-        document.getElementById("address").style.border = "2px solid #00b300";
-        document.getElementById("address").style.boxShadow = "0 0 1px 4px rgb(0, 255, 0, .4)";
-//        document.getElementById("validitation_text").style.visibility = "visible";
-//        document.getElementById("validitation_text").innerHTML = "Valid Bitcoin address.";
-//        document.getElementById("validitation_text").style.color = "green";
+        document.getElementById("address").style.boxShadow = "0 0 1px 2px rgb(0, 255, 0, .4)";
+        document.getElementById("address").style.background = "url(round-check_circle-24px.svg) no-repeat scroll 3px 3px";
+        document.getElementById("address").style.backgroundPosition = "98%";
+		document.getElementById("tooltip").innerHTML = "Valid Address";
         address_valid_state = "true";
     }
     function lose_address_focus(){
