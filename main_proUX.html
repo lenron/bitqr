@@ -190,7 +190,7 @@
 	}
 
 	.download_button {
-		visibility: hidden;
+		display: none;
 		padding: 10px;
 		margin: 10px;
 		color: #FFFFFF;
@@ -241,6 +241,19 @@
   border-style: solid;
   border-color: #373737 transparent transparent transparent;
 }
+
+@media screen and (max-width:800px) {
+	.page_container {
+		flex-direction: column;
+	}
+	.qr_image_container {
+		width: 100%;
+	}
+	.input_conatiner {
+		width: 100%;
+	}
+}
+
 </style></head>
 <body>
 	<div class="header">
@@ -436,7 +449,7 @@ function hide_qrcode(){
     //Don't show a QR Code unless it is a valid one.
     document.getElementById('qrcode_id').innerHTML = "";
 	//
-	document.getElementById("dl-btn").style.visibility = "hidden";
+	document.getElementById("dl-btn").style.display = "none";
 	document.getElementById("str_your_qr").innerHTML = "Your QR Code will show up here!";
 	document.getElementById("qr_label_desc").innerHTML = "Add information to generate QR Code.";
 	document.getElementById("qr_label_desc").style.opacity = "1";
@@ -452,7 +465,7 @@ console.log("input_text: " + input_text );
         document.getElementById('qr_label_desc').innerHTML = input_text;
         qrcode = new QRCode("qrcode_id");
         qrcode.makeCode(input_text);
-        document.getElementById("dl-btn").style.visibility = "visible";
+        document.getElementById("dl-btn").style.display = "block";
 		document.getElementById("str_your_qr").innerHTML = "";
 		document.getElementById("qr_label_desc").style.opacity = "0.5";
 		//document.getElementById("qr_image_container").style.backgroundImage = "none";
