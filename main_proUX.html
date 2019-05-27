@@ -161,11 +161,10 @@
 	.qr_image_container {
 		padding: 34px 50px;
 		width: 30%;
-		min-height: 392px;
+		min-width: 300px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		align-content: flex-end;
 		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.05);
 		border-radius: 8px;
 		background-size: 240px;
@@ -180,11 +179,19 @@
 		width: 256px;
 	}
 
+	#str_your_qr {
+		text-align: center;
+	}
 	#qr_label_desc {
+		text-align: center;
 		font-size: 14px;
 	}
 
 	.qr_code_string {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-content: flex-start;
 		width: 100%;
 		word-wrap: break-word;
 	}
@@ -242,14 +249,16 @@
   border-color: #373737 transparent transparent transparent;
 }
 
-@media screen and (max-width:800px) {
-	.page_container {
+@media screen and (max-width:600px) {
+	.page-container {
+		padding: 10px;
 		flex-direction: column;
 	}
 	.qr_image_container {
 		width: 100%;
 	}
-	.input_conatiner {
+	.input-container {
+		margin-bottom: 10px;
 		width: 100%;
 	}
 }
@@ -302,7 +311,7 @@
 		<div class="qr_image_container">
 			<div class="the_qr_code" id="qrcode_id"></div>
 			<div class="qr_code_string">
-				<strong id="str_your_qr">Your QR Code will show up here!</strong></br>
+				<strong id="str_your_qr">Your QR Code will show up here!</strong>
 				<label id="qr_label_desc">Add information to generate QR Code.</label>
 			</div>
 			<input class="download_button" type="button" id="dl-btn" value="Download">
@@ -450,7 +459,8 @@ function hide_qrcode(){
     document.getElementById('qrcode_id').innerHTML = "";
 	//
 	document.getElementById("dl-btn").style.display = "none";
-	document.getElementById("str_your_qr").innerHTML = "Your QR Code will show up here!";
+	//document.getElementById("str_your_qr").innerHTML = "Your QR Code will show up here!";
+	document.getElementById("str_your_qr").style.display = "block";
 	document.getElementById("qr_label_desc").innerHTML = "Add information to generate QR Code.";
 	document.getElementById("qr_label_desc").style.opacity = "1";
 	//document.getElementById("qr_image_container").style.backgroundImage = "url('qr_placeholder.png')";
@@ -466,7 +476,8 @@ console.log("input_text: " + input_text );
         qrcode = new QRCode("qrcode_id");
         qrcode.makeCode(input_text);
         document.getElementById("dl-btn").style.display = "block";
-		document.getElementById("str_your_qr").innerHTML = "";
+		//document.getElementById("str_your_qr").innerHTML = "";
+		document.getElementById("str_your_qr").style.display = "none";
 		document.getElementById("qr_label_desc").style.opacity = "0.5";
 		//document.getElementById("qr_image_container").style.backgroundImage = "none";
     }
