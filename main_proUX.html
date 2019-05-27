@@ -148,6 +148,9 @@
 		background-color: #FBFBFB;
 		border-radius: 8px;
 	}
+	.uri-container input {
+		margin-bottom: 10px;
+	}
 
 	.custom-container {
 		padding: 24px;
@@ -262,7 +265,7 @@
 					<div class="checkbox_container">
 						<div>
 							<input type="checkbox" oninput="gen_qrcode('uri_change')" id="uri">
-							<label for="uri"></label>
+							<label for="uri" ></label>
 						</div>
 						<div class="checkbox_label"><label>Bitcoin URI</label></div>
 					</div>
@@ -278,7 +281,7 @@
 			<div id="custom_tab" class="tabcontent">
 				<div class="custom-container">
 					<label>Custom String</label>
-					<input type="text" oninput="gen_qrcode('custom_change')" id"custom_id">
+					<input type="text" oninput="gen_qrcode('custom_change')" id="custom_id">
 				</div>
 			</div>
 		</div>
@@ -316,6 +319,11 @@
 		//whichever tab was clicked on, display that tab as active and its content as visible (flex)
 		document.getElementById(actionToTake).style.display = "flex";
 		evt.currentTarget.className += " active";
+		/*if (actionToTake === "custom_tab"){
+			custom_tab_open = true;
+		} else {
+			custom_tab_open = false;
+		}*/
 	}
 // Merge line
 
@@ -327,6 +335,7 @@ var label_obj;
 var message_obj;
 var custom_obj;
 var addr_obj;
+
 
 //Set whenever user modifies an input box, lets gen_qrcode() subroutine know what input was changed.
 var page_change;
@@ -417,7 +426,7 @@ function determine_qr_code_value(){
     }
     //If custom value is filled, then QR-Code value defaults to that.
     else{
-       // qr_value = custom_obj.value;
+        qr_value = custom_obj.value;
         return qr_value;
     }
 }
@@ -651,12 +660,12 @@ function record_uri_checkbox_state(){
 }
 
 function get_current_page_state(){
-        check_address();
-        check_amount();
-        check_label();
-    check_message()
-        //check_custom_value();
-        record_uri_checkbox_state();
+	check_address();
+	check_amount();
+	check_label();
+	check_message()
+	record_uri_checkbox_state();
+	check_custom_value();
 }
 
 //Why is this in a function that gets called over and over?
@@ -667,7 +676,7 @@ function define_html_id_variables(){
         amt_obj = document.getElementById('amount');
         label_obj = document.getElementById('label');
         message_obj = document.getElementById('message');
-        //custom_obj = document.getElementById('custom_id');
+        custom_obj = document.getElementById('custom_id');
         addr_obj = document.getElementById('address');
 }
 
