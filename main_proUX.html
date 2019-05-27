@@ -346,6 +346,7 @@
 		//whichever tab was clicked on, display that tab as active and its content as visible (flex)
 		document.getElementById(actionToTake).style.display = "flex";
 		evt.currentTarget.className += " active";
+		//Important function that replaced a ton of code for the custom functionality.
 		if (actionToTake === "custom_tab"){
 			custom_tab_open = true;
 			gen_qrcode("custom_chage");
@@ -389,17 +390,13 @@ var uri_encoded_message = "";
 var message_empty = true;
 var stored_message = "";
 
-var custom_empty = true;
-var custom_empty_state_changed = false;
-
 var uri_checked = false;
     var address_valid_state = "empty";
 
 //This function builds the bitcoin URI string or sets the qr value to the (valid) bitcoin address or custom input.
 function determine_qr_code_value(){
     var qr_value = "";
-    if (!custom_tab_open){
-    //if (custom_empty){
+    if (!custom_tab_open){  //set in tab function
         if (addr_valid){
             if (uri_checked){
                 //Do not generate a QR-Code if amount is not empty and not a valid number.
@@ -500,34 +497,7 @@ console.log("input_text: " + input_text );
 //Update page based on change of page_change variable (which records the most recent change to the page by the user).
 //The "page_change" variable is whichever field was modified (addr_change, amt_change, label_change, message_change, custom_change, or uri_change.)
 function update_page(page_change){
-    if (page_change == 'custom_change'){   //handle custom input functionality
-        /*if (custom_empty){
-            if (custom_empty_state_changed){  //if custom_empty && state has changed, you know custom just got erased, so bring back the rest.
-                addr_obj.disabled = false;
-                amt_obj.disabled = false;
-                label_obj.disabled = false;
-                message_obj.disabled = false;
-                uri_checkbox_obj.disabled = false;
-                addr_obj.value = stored_addr;
-                amt_obj.value = stored_amt;
-                label_obj.value = stored_label;
-                message_obj.value = stored_message; 
-            }
-        } else {  // custom input active
-            if (custom_empty_state_changed){
-                addr_obj.disabled = true;
-                amt_obj.disabled = true;
-                label_obj.disabled = true;
-                message_obj.disabled = true;
-                uri_checkbox_obj.disabled = true;
-                store_values();
-            }
-            addr_obj.value = "";
-            amt_obj.value = "";
-            label_obj.value = "";
-            message_obj.value = ""
-        }*/
-    } else if (page_change == 'uri_change'){  //uri checkbox was just checked or unchecked
+    if (page_change == 'uri_change'){  //uri checkbox was just checked or unchecked
             if (!uri_checked){ //uri was just uchecked 
                 store_values();
                 amt_obj.value = "";
@@ -559,15 +529,12 @@ function update_page(page_change){
 	}
 }
 
-
 //Stores the last valid values.
 function store_values(){
-    stored_addr = addr_obj.value;
     stored_amt = amt_obj.value;
     stored_label = label_obj.value;
     stored_message = message_obj.value;
 }
-
 
 //Sets 'addr_empty', 'addr_valid', and 'stored_addr'.
 function check_address(){
@@ -656,31 +623,6 @@ function check_message() {
     }
 }
 
-//Sets 'custom_empty' (for a custom QR code not in the bitcoin uri format).
-function check_custom_value() {
-    //If custom string is empty, mark it so. 
-    if ( custom_obj.value == "" ) {
-        if (custom_empty == false){
-            custom_empty_state_changed = true;
-        }
-        else{
-            custom_empty_state_changed = false;
-        }
-        custom_empty = true;
-    }
-    //Otherwise, mark as not empty. 
-    else {
-        if (custom_empty == true){
-            custom_empty_state_changed = true;
-        }
-        else{
-            custom_empty_state_changed = false;
-        }
-        custom_empty = false;
-    }
-}
-
-
 //Record whether URI checkbox is presently checked.
 function record_uri_checkbox_state(){
     if (uri_checkbox_obj.checked) {
@@ -697,12 +639,9 @@ function get_current_page_state(){
 	check_label();
 	check_message()
 	record_uri_checkbox_state();
-	check_custom_value();
 }
 
-//Why is this in a function that gets called over and over?
-// Maybe because the objects haven't been loaded yet.
-// Could use an initialize function?
+// Called at the top of the script... It seems to work fine.
 function define_html_id_variables(){
         uri_checkbox_obj = document.getElementById('uri');
         amt_obj = document.getElementById('amount');
