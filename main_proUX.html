@@ -322,11 +322,15 @@
 <script src="qrcode.js"></script>
 <script src="wallet-address-validator.js"></script>
 <script type="text/javascript">
-	//Not sure where to put this yet. Sets the default open tab.
-	document.getElementById("defaultOpen").click();
 
-	//define obj vars. not sure where to put this either.
-	define_html_id_variables();
+	//Initialize function catalyst. Runs the 'initialize' function when the page has finished loading.
+	window.addEventListener('load', initialize, false);
+	function initialize () {
+		//Define object variables. 
+		define_html_id_variables();
+		//Sets the default open tab.
+		document.getElementById("defaultOpen").click();
+	}
 
 	//Function from w3schools: https://www.w3schools.com/howto/howto_js_tabs.asp
 	function selectTab(evt, actionToTake) {
