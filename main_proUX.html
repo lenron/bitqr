@@ -268,7 +268,7 @@
 </style></head>
 <body>
 	<div class="header">
-		<div class="header-icon"><img src="qr_icon.png"></div>
+		<div class="header-icon"><img src="qr_icon.png" id="test_img_id"></div>
 		<div class="header-text"><label> Bitcoin QR</label></div>
 	</div>
 	<div class="page-container">
@@ -311,21 +311,23 @@
 		</div>
 		
 		<div class="qr_image_container">
-			<div class="qr_code_img" id="qrcode_id"></div>
+			<div class="qr_code_img" id="qrcode_id">
+			</div>
 			<div class="qr_desc_div" id="qr_desc_div_id">
 				<strong id="your_qr_here">Your QR Code will show up here!</strong>
 				<label id="qr_code_str">Add information to generate QR Code.</label>
 			</div>
 			<input class="download_button" type="button" id="dl-btn" value="Download">
+				<canvas id="canvas_id" width="200" height="200" style="border:1px solid #d3d3d3;"></canvas>
 		</div>
 	</div>
+<img src="bitcoin_logo.svg" id="btc_logo_img_id" style="visibility: hidden">
 <script src="qrcode.js"></script>
 <script src="wallet-address-validator.js"></script>
 <script type="text/javascript">
 
-	//Initialize function catalyst. Runs the 'initialize' function when the page has finished loading.
-	window.addEventListener('load', initialize, false);
-	function initialize () {
+	//When the page loads, run an initialization function.
+	window.onload = function () {
 		//Define object variables. 
 		define_html_id_variables();
 		//Sets the default open tab.
@@ -358,6 +360,28 @@
 			custom_tab_open = false;
 			gen_qrcode("addr_chage");
 		}
+	}
+
+	function draw_canvas_with_logo() {
+
+    //do what you need here
+
+		var canvas = document.getElementById("canvas_id");
+		var ctx = canvas.getContext("2d");
+		var qr_code_img = document.getElementById("qr_img");
+		var btc_logo_img = document.getElementById("btc_logo_img_id");
+		//var btc_logo_img = new Image;
+		//btc_logo_img.src = 'bitcoin_logo.svg';
+
+		var test = document.getElementById("test_img_id");
+
+		qr_code_img.setAttribute('crossOrigin', 'anonymous');
+		btc_logo_img.setAttribute('crossOrigin', 'anonymous');
+setTimeout(function(){
+		//ctx.drawImage(test, 10, 10);
+		ctx.drawImage(qr_code_img, 1, 1);
+		ctx.drawImage(btc_logo_img, 50, 50);
+}, 500);
 	}
 // Merge line
 
@@ -493,6 +517,7 @@ console.log("input_text: " + input_text );
         document.getElementById('qr_code_str').innerHTML = input_text;
 		document.getElementById("qr_desc_div_id").style.marginTop = "15px";
 		//document.getElementById("qr_image_container").style.backgroundImage = "none";
+		draw_canvas_with_logo();
     }
 	else {
 		//something went wrong
@@ -679,7 +704,8 @@ console.log("qr code value: " + qr_code_value);
 
     // Listen for download click.
     document.getElementById("dl-btn").addEventListener("click", function(){
-        var qr_img_src = document.getElementById("qr_img").src;
+        //var qr_img_src = document.getElementById("qr_img").src;
+		qr_img_src = document.getElementById("canvas_id").toDataURL();
         var filename = "Custom_QR_Code.png"; 
         if ( addr_obj.value != "" ) { 
             filename = addr_obj.value + ".png";
