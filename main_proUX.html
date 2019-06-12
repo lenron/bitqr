@@ -174,8 +174,7 @@
 	}
 
 	.qr_code_img {
-		height: 256px;
-		width: 256px;
+		display: none;
 	}
 
 	#your_qr_here {
@@ -206,6 +205,10 @@
 		height: 50px;
 		width: 256px;
 		font-size: 16px;
+	}
+
+	#btc_logo_img_id {
+		display: none;
 	}
 
 /* Still a work in progress */
@@ -311,17 +314,18 @@
 		</div>
 		
 		<div class="qr_image_container">
-			<div class="qr_code_img" id="qrcode_id">
-			</div>
+			<canvas id="canvas_id" width="256" height="256"> </canvas>
 			<div class="qr_desc_div" id="qr_desc_div_id">
 				<strong id="your_qr_here">Your QR Code will show up here!</strong>
 				<label id="qr_code_str">Add information to generate QR Code.</label>
 			</div>
 			<input class="download_button" type="button" id="dl-btn" value="Download">
-				<canvas id="canvas_id" width="200" height="200" style="border:1px solid #d3d3d3;"></canvas>
 		</div>
 	</div>
-<img src="bitcoin_logo.svg" id="btc_logo_img_id" style="visibility: hidden">
+<!--Hidden items below.-->
+<img src="bitcoin_logo.svg" id="btc_logo_img_id">
+<div class="qr_code_img" id="qrcode_id"></div>
+<!--Start JS-->
 <script src="qrcode.js"></script>
 <script src="wallet-address-validator.js"></script>
 <script type="text/javascript">
@@ -364,8 +368,6 @@
 
 	function draw_canvas_with_logo() {
 
-    //do what you need here
-
 		var canvas = document.getElementById("canvas_id");
 		var ctx = canvas.getContext("2d");
 		var qr_code_img = document.getElementById("qr_img");
@@ -375,13 +377,18 @@
 
 		var test = document.getElementById("test_img_id");
 
+		//These are set to avoid a CORS restriction type error.
 		qr_code_img.setAttribute('crossOrigin', 'anonymous');
 		btc_logo_img.setAttribute('crossOrigin', 'anonymous');
-setTimeout(function(){
-		//ctx.drawImage(test, 10, 10);
-		ctx.drawImage(qr_code_img, 1, 1);
-		ctx.drawImage(btc_logo_img, 50, 50);
-}, 500);
+		setTimeout(function(){
+			//ctx.drawImage(test, 10, 10);
+			ctx.drawImage(qr_code_img, 0, 0);
+			ctx.drawImage(btc_logo_img, 96, 96);
+			ctx.lineWidth = 8;						//Make the line thicker.
+			ctx.strokeStyle = "#ffffff";			//Make the line white.
+			ctx.arc(128, 128, 32, 0, 2 * Math.PI);	//Set the size of the circle.
+			ctx.stroke();							//Draw the circle.
+		}, 100);
 	}
 // Merge line
 
@@ -492,7 +499,12 @@ function determine_qr_code_value(){
 function hide_qrcode(){
 //alert("QR code failed");
     //Don't show a QR Code unless it is a valid one.
-    document.getElementById('qrcode_id').innerHTML = "";
+    //document.getElementById('qrcode_id').innerHTML = "";
+const canvas = document.getElementById("canvas_id");
+const context = canvas.getContext('2d');
+
+context.clearRect(0, 0, canvas.width, canvas.height);
+
 	document.getElementById("dl-btn").style.display = "none";
 	document.getElementById("your_qr_here").style.display = "block";
 	document.getElementById("qr_code_str").innerHTML = "Add information to generate QR Code.";
