@@ -284,7 +284,7 @@
 				<div class="address-container">
 					<label>Bitcoin Address</label>
 					<div class="addr_tooltip">
-						<input type="text" spellcheck="false" class="address_input" id="address" oninput="gen_qrcode('addr_change')" onfocusout="lose_address_focus()" onfocus="gain_address_focus()" onmouseover="mouse_over()" onmouseout="mouse_out()">
+						<input type="text" spellcheck="false" class="address_input" id="address" oninput="gen_qrcode('addr_change')" onfocusout="lose_address_focus()" onfocus="gain_address_focus()" onmouseover="show_tooltip()" onmouseout="hide_tooltip()">
 						<span class="tooltiptext" id="tooltip">Valid Address</span>
 					</div>
 				</div>
@@ -774,12 +774,12 @@ console.log("qr code value: " + qr_code_value);
 		}
     }
 
-	function mouse_over(){
+	function show_tooltip(){
 		if ( address_valid_state === "true" || address_valid_state === "false" ){
 			document.getElementById("tooltip").style.visibility = "visible";
 		} 
 	}
-	function mouse_out(){
+	function hide_tooltip(){
 		document.getElementById("tooltip").style.visibility = "hidden";
 	}
 
