@@ -383,11 +383,13 @@
 		setTimeout(function(){
 			//ctx.drawImage(test, 10, 10);
 			ctx.drawImage(qr_code_img, 0, 0);
-			ctx.drawImage(btc_logo_img, 96, 96);
-			ctx.lineWidth = 8;						//Make the line thicker.
-			ctx.strokeStyle = "#ffffff";			//Make the line white.
-			ctx.arc(128, 128, 32, 0, 2 * Math.PI);	//Set the size of the circle.
-			ctx.stroke();							//Draw the circle.
+			if ( custom_tab_open === false ){  			//Only draw the logo if it's a BTC QR code.
+				ctx.drawImage(btc_logo_img, 96, 96);
+				ctx.lineWidth = 8;						//Make the line thicker.
+				ctx.strokeStyle = "#ffffff";			//Make the line white.
+				ctx.arc(128, 128, 32, 0, 2 * Math.PI);	//Set the size of the circle.
+				ctx.stroke();							//Draw the circle.
+			}
 		}, 100);
 	}
 // Merge line
@@ -499,12 +501,10 @@ function determine_qr_code_value(){
 function hide_qrcode(){
 //alert("QR code failed");
     //Don't show a QR Code unless it is a valid one.
-    //document.getElementById('qrcode_id').innerHTML = "";
-const canvas = document.getElementById("canvas_id");
-const context = canvas.getContext('2d');
-
-context.clearRect(0, 0, canvas.width, canvas.height);
-
+    document.getElementById('qrcode_id').innerHTML = "";
+	const canvas = document.getElementById("canvas_id");
+	const context = canvas.getContext('2d');
+	context.clearRect(0, 0, canvas.width, canvas.height);		//Clear the canvas.
 	document.getElementById("dl-btn").style.display = "none";
 	document.getElementById("your_qr_here").style.display = "block";
 	document.getElementById("qr_code_str").innerHTML = "Add information to generate QR Code.";
@@ -719,7 +719,7 @@ console.log("qr code value: " + qr_code_value);
         //var qr_img_src = document.getElementById("qr_img").src;
 		qr_img_src = document.getElementById("canvas_id").toDataURL();
         var filename = "Custom_QR_Code.png"; 
-        if ( addr_obj.value != "" ) { 
+        if ( addr_obj.value != "" && custom_tab_open === false) { 
             filename = addr_obj.value + ".png";
         }
         download(filename, qr_img_src);
