@@ -330,12 +330,54 @@
 <script src="wallet-address-validator.js"></script>
 <script type="text/javascript">
 
+
+//HTML element ID variables.
+var uri_checkbox_obj;
+var amt_obj;
+var label_obj;
+var message_obj;
+var custom_obj;
+var addr_obj;
+
+//Set whenever user modifies an input box, lets gen_qrcode() subroutine know what input was changed.
+var page_change = "";
+
+//Other variables.
+var custom_tab_open = false;
+var addr_valid = false;  //Records whether bitcoin address is valid or not at a given time.
+var addr_empty = true;  //Records whether the address field is empty or not at a given time.
+var stored_addr = "";   //Records the current address field, so that it can be brought back at a later time.
+var amt_valid = false;
+var amt_empty = true;
+var last_amt = "";
+var stored_amt = "";
+var uri_encoded_label = "";
+var label_empty = true;
+var stored_label = "";
+var uri_encoded_message = "";
+var message_empty = true;
+var stored_message = "";
+var uri_checked = false;
+var address_valid_state = "empty";
+
 	//When the page loads, run an initialization function.
 	window.onload = function () {
-		//Define object variables. 
-		define_html_id_variables();
-		//Sets the default open tab.
-		document.getElementById("defaultOpen").click();
+		define_html_id_variables();							//Define object variables. 
+		document.getElementById("defaultOpen").click();		//Sets the default open tab.
+	}
+	//Generates a QR-code if all values check out.  Called by producing input in various fields above.
+	function gen_qrcode(page_change){
+		//This function sets variables like addr_valid, paving the wave for the clear conditional logic below.
+		get_current_page_state();
+		//Depending on which value was most recently changed, 
+		//the page may need to be updated (i.e. certain fields blanked out).
+		//console.log("page_change= " + page_change);
+		update_page(page_change);
+		var qr_code_value = determine_qr_code_value();
+		//console.log("qr code value: " + qr_code_value);
+		//Clear the last QR Code.
+		hide_qrcode();
+		make_qrcode(qr_code_value);
 	}
 
 	//Function from w3schools: https://www.w3schools.com/howto/howto_js_tabs.asp
@@ -367,7 +409,6 @@
 	}
 
 	function draw_canvas_with_logo() {
-
 		var canvas = document.getElementById("canvas_id");
 		var ctx = canvas.getContext("2d");
 		var qr_code_img = document.getElementById("qr_img");
@@ -392,44 +433,6 @@
 			}
 		}, 100);
 	}
-// Merge line
-
-
-//HTML element ID variables.
-var uri_checkbox_obj;
-var amt_obj;
-var label_obj;
-var message_obj;
-var custom_obj;
-var addr_obj;
-
-
-//Set whenever user modifies an input box, lets gen_qrcode() subroutine know what input was changed.
-var page_change;
-
-//Other variables.
-var custom_tab_open = false;
-
-var addr_valid = false;  //Records whether bitcoin address is valid or not at a given time.
-var addr_empty = true;  //Records whether the address field is empty or not at a given time.
-var stored_addr = "";   //Records the current address field, so that it can be brought back at a later time.
-
-var amt_valid = false;
-var amt_empty = true;
-var last_amt = "";
-var stored_amt = "";
-
-var uri_encoded_label = "";
-var label_empty = true;
-var stored_label = "";
-
-var uri_encoded_message = "";
-var message_empty = true;
-var stored_message = "";
-
-var uri_checked = false;
-    var address_valid_state = "empty";
-
 //This function builds the bitcoin URI string or sets the qr value to the (valid) bitcoin address or custom input.
 function determine_qr_code_value(){
     var qr_value = "";
@@ -691,28 +694,6 @@ function define_html_id_variables(){
         custom_obj = document.getElementById('custom_id');
         addr_obj = document.getElementById('address');
 }
-
-//Generates a QR-code if all values check out.
-function gen_qrcode(page_change){
-
-        //This function sets variables like addr_valid, paving the wave for the clear conditional logic below.
-        get_current_page_state();
-
-        //Depending on which value was most recently changed, 
-    //the page may need to be updated (i.e. certain fields blanked out).
-console.log("page_change= " + page_change);
-        update_page(page_change);
-
-        var qr_code_value = determine_qr_code_value();
-console.log("qr code value: " + qr_code_value);
-
-        //Clear the last QR Code.
-        hide_qrcode();
-    make_qrcode(qr_code_value);
-	
-}
-
-//break
 
     // Listen for download click.
     document.getElementById("dl-btn").addEventListener("click", function(){
