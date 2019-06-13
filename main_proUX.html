@@ -499,7 +499,8 @@ var address_valid_state = "empty";
 		//These are set to avoid a CORS restriction type error.
 		qr_code_img.setAttribute('crossOrigin', 'anonymous');
 		btc_logo_img.setAttribute('crossOrigin', 'anonymous');
-		setTimeout(function(){							//We need to wait a few miliseconds for the image to load.
+//		setTimeout(function(){							//We need to wait a few miliseconds for the image to load.
+		qr_code_img.onload = function() {
 			ctx.drawImage(qr_code_img, 0, 0);
 			if ( custom_tab_open === false ){  			//Only draw the logo if it's a BTC QR code.
 				ctx.drawImage(btc_logo_img, 96, 96);
@@ -508,7 +509,8 @@ var address_valid_state = "empty";
 				ctx.arc(128, 128, 32, 0, 2 * Math.PI);	//Set the size of the circle.
 				ctx.stroke();							//Draw the circle.
 			}
-		}, 5);	//This may be too short for slower systems.  I would use a callback, but it doesn't seem to work.
+//		}, 5);	//This may be too short for slower systems.  I would use a callback, but it doesn't seem to work.
+		}
 	}
 	//Stores the last valid values.
 	function store_values(){
