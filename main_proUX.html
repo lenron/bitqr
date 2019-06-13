@@ -380,6 +380,50 @@ var address_valid_state = "empty";
 		make_qrcode(qr_code_value);
 	}
 
+	function get_current_page_state(){
+		check_address();
+		check_amount();
+		check_label();
+		check_message()
+		record_uri_checkbox_state();
+	}
+
+//Update page based on change of page_change variable (which records the most recent change to the page by the user).
+//The "page_change" variable is whichever field was modified (addr_change, amt_change, label_change, message_change, custom_change, or uri_change.)
+function update_page(page_change){
+    if (page_change == 'uri_change'){  //uri checkbox was just checked or unchecked
+            if (!uri_checked){ //uri was just uchecked 
+                store_values();
+                amt_obj.value = "";
+                label_obj.value = "";
+                message_obj.value = "";
+            } else {  //uri was just checked
+                amt_obj.value = stored_amt;
+                label_obj.value = stored_label;
+                message_obj.value = stored_message; 
+            }
+	// We're forcing generator to add a uri string when the textboxes are empty and something is entered  
+	} else if (uri_checked == false && (page_change == 'amt_change' || page_change == 'label_change' || page_change == 'message_change') ) {
+        if (amt_empty == false || label_empty == false || message_empty == false) {
+        // At this point we know that something is entered into the boxes.
+            //check uri checkbox
+            uri_checkbox_obj.checked = true;
+        }
+    }
+    //Run this again to update variables to the latest page updates.
+    get_current_page_state();
+
+	//These two if statements keep the address input border and valid text acting properly when entering into the custom input.
+	if( document.getElementById("address").value == ""){
+			address_border_on_empty();			
+	}
+	//If focus is NOT the address, remove border.
+	if( document.activeElement.id != "address" ){
+		document.getElementById("address").style.boxShadow = "none";
+	}
+}
+
+//Stores the last valid values.
 	//Function from w3schools: https://www.w3schools.com/howto/howto_js_tabs.asp
 	function selectTab(evt, actionToTake) {
 		var i, tabcontent, tablinks;
@@ -538,40 +582,6 @@ console.log("input_text: " + input_text );
 		//something went wrong
 	}
 }
-//Update page based on change of page_change variable (which records the most recent change to the page by the user).
-//The "page_change" variable is whichever field was modified (addr_change, amt_change, label_change, message_change, custom_change, or uri_change.)
-function update_page(page_change){
-    if (page_change == 'uri_change'){  //uri checkbox was just checked or unchecked
-            if (!uri_checked){ //uri was just uchecked 
-                store_values();
-                amt_obj.value = "";
-                label_obj.value = "";
-                message_obj.value = "";
-            } else {  //uri was just checked
-                amt_obj.value = stored_amt;
-                label_obj.value = stored_label;
-                message_obj.value = stored_message; 
-            }
-	// We're forcing generator to add a uri string when the textboxes are empty and something is entered  
-	} else if (uri_checked == false && (page_change == 'amt_change' || page_change == 'label_change' || page_change == 'message_change') ) {
-        if (amt_empty == false || label_empty == false || message_empty == false) {
-        // At this point we know that something is entered into the boxes.
-            //check uri checkbox
-            uri_checkbox_obj.checked = true;
-        }
-    }
-    //Run this again to update variables to the latest page updates.
-    get_current_page_state();
-
-	//These two if statements keep the address input border and valid text acting properly when entering into the custom input.
-	if( document.getElementById("address").value == ""){
-			address_border_on_empty();			
-	}
-	//If focus is NOT the address, remove border.
-	if( document.activeElement.id != "address" ){
-		document.getElementById("address").style.boxShadow = "none";
-	}
-}
 
 //Stores the last valid values.
 function store_values(){
@@ -677,13 +687,6 @@ function record_uri_checkbox_state(){
     }
 }
 
-function get_current_page_state(){
-	check_address();
-	check_amount();
-	check_label();
-	check_message()
-	record_uri_checkbox_state();
-}
 
 // Called at the top of the script... It seems to work fine.
 function define_html_id_variables(){
