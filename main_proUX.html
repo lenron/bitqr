@@ -275,6 +275,7 @@
 		<div class="header-text"><label> Bitcoin QR</label></div>
 	</div>
 	<div class="page-container">
+
 		<div class="input-container">
 			<div class="tab">
 				<button class="tablinks" onclick="selectTab(event, 'address_tab')" id="defaultOpen">Bitcoin QR Code</button>
@@ -393,34 +394,6 @@ var address_valid_state = "empty";
 			gen_qrcode("addr_chage");
 		}
 	}
-
-	//This function is needed to integrate BTC logo into QR image.
-	function draw_canvas_with_logo() {
-		var canvas = document.getElementById("canvas_id");
-		var ctx = canvas.getContext("2d");
-		var qr_code_img = document.getElementById("qr_img");
-		var btc_logo_img = document.getElementById("btc_logo_img_id");
-		//var btc_logo_img = new Image;
-		//btc_logo_img.src = 'bitcoin_logo.svg';
-
-		var test = document.getElementById("test_img_id");
-
-		//These are set to avoid a CORS restriction type error.
-		qr_code_img.setAttribute('crossOrigin', 'anonymous');
-		btc_logo_img.setAttribute('crossOrigin', 'anonymous');
-		setTimeout(function(){
-			//ctx.drawImage(test, 10, 10);
-			ctx.drawImage(qr_code_img, 0, 0);
-			if ( custom_tab_open === false ){  			//Only draw the logo if it's a BTC QR code.
-				ctx.drawImage(btc_logo_img, 96, 96);
-				ctx.lineWidth = 8;						//Make the line thicker.
-				ctx.strokeStyle = "#ffffff";			//Make the line white.
-				ctx.arc(128, 128, 32, 0, 2 * Math.PI);	//Set the size of the circle.
-				ctx.stroke();							//Draw the circle.
-			}
-		}, 100);
-	}
-
 	//Generates a QR-code if all values check out.  Called by producing input in various fields above.
 	function gen_qrcode(page_change){
 		//This function sets variables like addr_valid, paving the wave for the clear conditional logic below.
@@ -510,6 +483,26 @@ var address_valid_state = "empty";
 		else {
 			//something went wrong
 		}
+	}
+	//This function is needed to integrate BTC logo into QR image.
+	function draw_canvas_with_logo() {
+		var canvas = document.getElementById("canvas_id");
+		var ctx = canvas.getContext("2d");
+		var qr_code_img = document.getElementById("qr_img");
+		var btc_logo_img = document.getElementById("btc_logo_img_id");
+		//These are set to avoid a CORS restriction type error.
+		qr_code_img.setAttribute('crossOrigin', 'anonymous');
+		btc_logo_img.setAttribute('crossOrigin', 'anonymous');
+		setTimeout(function(){							//We need to wait a few miliseconds for the image to load.
+			ctx.drawImage(qr_code_img, 0, 0);
+			if ( custom_tab_open === false ){  			//Only draw the logo if it's a BTC QR code.
+				ctx.drawImage(btc_logo_img, 96, 96);
+				ctx.lineWidth = 8;						//Make the line thicker.
+				ctx.strokeStyle = "#ffffff";			//Make the line white.
+				ctx.arc(128, 128, 32, 0, 2 * Math.PI);	//Set the size of the circle.
+				ctx.stroke();							//Draw the circle.
+			}
+		}, 5);	//This may be to short for slower systems.  I would use a callback, but it doesn't seem to work.
 	}
 	//Stores the last valid values.
 	function store_values(){
