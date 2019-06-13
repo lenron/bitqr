@@ -16,8 +16,8 @@
 	}
 
 	input:focus {
-		outline: 0;
 		box-shadow: 0 0 1px 2px #3D67FF;
+		outline: 0;
 	}
 
 	input[type="text"] {
@@ -35,9 +35,9 @@
 	}
 	
 	input[type="checkbox"] + label {
-		display: flex;
 		height: 22px;
 		width: 22px;
+		display: flex;
 		/*background: #FFFFFF;	/*switch with custom checkbox image for unchecked*/
 		background-image: url('Unchecked_24px.svg');
 		/*background-image: url('test.svg');*/
@@ -46,13 +46,13 @@
 	}
 
 	input[type="checkbox"]:checked + label {
+		height: 22px;
+		width: 22px;
 		display: flex;
 		/*background: #00ff00;	/*switch with custom checkbox image for checked*/
 		background-image: url('round-check_box-24px.svg');
 		background-size: 22px;
 		background-repeat: no-repeat;
-		height: 22px;
-		width: 22px;
 
 	}
 
@@ -117,7 +117,6 @@
 		outline: none;
 		padding: 15px;
 		color: gray;
-/*		transition: 0.3s;  /*Kinda makes it look weird I guess?*/
 	}
 
 	/* Change background color of buttons on hover */
@@ -137,15 +136,50 @@
 	}
 
 	.address-container {
-/*		position: relative; /* for tooltip positioning */
 		padding: 24px;
 		border-bottom: 2px solid #D3E9F4;
 	}
+	.address_input {
+		padding-right: 36px !important;  /* don't cover up validity icon */
+	}
+
+	/* tooltip functionality added from w3schools */
+	.addr_tooltip {
+		position: relative;
+	}
+	.addr_tooltip .tooltiptext {
+		visibility: hidden;
+		width: 150px;
+		background-color: #373737;
+		color: #fff;
+		text-align: center;
+		border-radius: 6px;
+		padding: 4px 0;
+
+		/* Position the tooltip */
+		position: absolute;
+		z-index: 1;
+
+		/**/
+		bottom: 130%;
+		left: 93%;
+		margin-left: -60px;
+	}
+	.addr_tooltip .tooltiptext::after {
+		content: "";
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		margin-left: -12px;  /*moves the arrow horizontally*/
+		border-width: 14px;  /*height of the triangle (arrow)*/
+		border-style: solid;
+		border-color: #373737 transparent transparent transparent;
+	}
 
 	.uri-container {
+		border-radius: 8px;
 		padding: 24px;
 		background-color: #FBFBFB;
-		border-radius: 8px;
 	}
 	.uri-container input {
 		margin-bottom: 10px;
@@ -153,17 +187,15 @@
 
 	.custom-container {
 		padding: 24px;
-
 	}
 
-/* Move down when convenient */
 	.qr_image_container {
-		padding: 34px 50px;
 		width: 30%;
 		min-width: 300px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		padding: 34px 50px;
 		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.05);
 		border-radius: 8px;
 		background-size: 240px;
@@ -186,87 +218,47 @@
 	}
 
 	.qr_desc_div {
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-content: flex-start;
-		width: 100%;
 		word-wrap: break-word;
 	}
 
 	.download_button {
 		display: none;
+		width: 256px;
+		height: 50px;
+		font-size: 16px;
 		padding: 10px;
 		margin: 10px;
+		border-radius: 4px;
+		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.05);
 		color: #FFFFFF;
 		background-color: #3D67FF;
-		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.05);
-		border-radius: 4px;
-		height: 50px;
-		width: 256px;
-		font-size: 16px;
 	}
 
 	#btc_logo_img_id {
 		display: none;
 	}
 
-/* Still a work in progress */
-.address_input {
-	padding-right: 36px !important;  /* don't cover up validity icon */
-}
-
-.addr_tooltip {
-  position: relative;
-}
-
-/* tooltip functionality added from w3schools */
-.addr_tooltip .tooltiptext {
-  visibility: hidden;
-  width: 150px;
-  background-color: #373737;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 4px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-
-/**/
-  bottom: 130%;
-  left: 93%;
-  margin-left: -60px;
-}
-
-.addr_tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -12px;  /*moves the arrow horizontally*/
-  border-width: 14px;  /*height of the triangle (arrow)*/
-  border-style: solid;
-  border-color: #373737 transparent transparent transparent;
-}
-
-@media screen and (max-width:600px) {
-	.header {
-		justify-content: center;
+	@media screen and (max-width:600px) {
+		.header {
+			justify-content: center;
+		}
+		.page-container {
+			flex-direction: column;
+			padding: 10px;
+		}
+		.qr_image_container {
+			width: 100%;
+		}
+		.input-container {
+			width: 100%;
+			margin-bottom: 10px;
+		}
 	}
-	.page-container {
-		padding: 10px;
-		flex-direction: column;
-	}
-	.qr_image_container {
-		width: 100%;
-	}
-	.input-container {
-		margin-bottom: 10px;
-		width: 100%;
-	}
-}
 
 </style></head>
 <body>
