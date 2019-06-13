@@ -53,7 +53,6 @@
 		background-image: url('round-check_box-24px.svg');
 		background-size: 22px;
 		background-repeat: no-repeat;
-
 	}
 
 	.checkbox_container {
@@ -87,7 +86,6 @@
 	.page-container {
 		display: flex;
 		flex-direction: row;
-	/*	flex-wrap: wrap;  /*Not sure if we want wrapping behavior yet*/
 		align-items: flex-start;
 		justify-content: space-evenly;
 		padding-top: 48px;
@@ -160,7 +158,7 @@
 		position: absolute;
 		z-index: 1;
 
-		/**/
+		/* */
 		bottom: 130%;
 		left: 93%;
 		margin-left: -60px;
@@ -205,8 +203,21 @@
 		background-image: url('qr_placeholder.png');
 	}
 
+	#overlay_container {
+		position: relative;
+		width: 256px;
+		height: 256px;
+	}
+	#overlay_container canvas, #qrcode_id {
+		position: absolute;
+	}
 	.qr_code_img {
-		display: none;
+		width: 256px;
+		height: 256px;
+		z-index: 1;
+	}
+	#canvas_id {
+		z-index: 100;
 	}
 
 	#your_qr_here {
@@ -243,6 +254,7 @@
 		display: none;
 	}
 
+	/* Responsive Design: When the viewport is fewer than 600px wide, activate the following CSS. */
 	@media screen and (max-width:600px) {
 		.header {
 			justify-content: center;
@@ -307,7 +319,10 @@
 		</div>
 		
 		<div class="qr_image_container">
+<div id="overlay_container">
 			<canvas id="canvas_id" width="256" height="256"> </canvas>
+<div class="qr_code_img" id="qrcode_id"></div>
+</div>
 			<div class="qr_desc_div" id="qr_desc_div_id">
 				<strong id="your_qr_here">Your QR Code will show up here!</strong>
 				<label id="qr_code_str">Add information to generate QR Code.</label>
@@ -317,7 +332,6 @@
 	</div>
 <!--Hidden items below.-->
 <img src="bitcoin_logo.svg" id="btc_logo_img_id">
-<div class="qr_code_img" id="qrcode_id"></div>
 <!--Start JS-->
 <script src="qrcode.js"></script>
 <script src="wallet-address-validator.js"></script>
